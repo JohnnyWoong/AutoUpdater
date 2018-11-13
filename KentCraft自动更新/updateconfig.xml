@@ -1,0 +1,169 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<!--
+  这个XML文件是放在服务器上的
+  需在程序初始化里添加以下代码即可:
+  if (!Jnw.Common.FileHelper.IsExistFile("更新日志.txt"))
+  {
+      Jnw.Common.FileHelper.CreateFile("更新日志.txt");
+  }
+  Jnw.Common.AutoUpdate au = new Jnw.Common.AutoUpdate("IP地址", "\\\\IP地址\\共享文件夹名\\UpdateConfig.xml", "更新日志.txt", System.Environment.CurrentDirectory + "\\");
+  //更新程序
+  if (au.CheckUpdate("IP地址", "共享文件夹名", "用户名", "密码", "版本号:"))
+  {
+      au.OpenUpdate("AutoUpdate.exe");
+  }
+  或
+  if (!Jnw.Common.FileHelper.IsExistFile("更新日志.txt"))
+  {
+      Jnw.Common.FileHelper.CreateFile("更新日志.txt");
+  }
+  Jnw.Common.AutoUpdate au = new Jnw.Common.AutoUpdate("下载地址路径", "服务器地址路径/UpdateConfig.xml", "更新日志.txt", System.Environment.CurrentDirectory + "\\");
+  //更新程序
+  if (au.CheckUpdate("版本号:"))
+  {
+      au.OpenUpdate("AutoUpdate.exe");
+  }
+-->
+<config>
+  <version value="V2.5">
+    <!--
+      Author: Johnny Wong
+      Time: 2018.11.13
+      Info: 追加的更新日志
+    -->
+    <item key="updateInfo" value="版本号:V2.5
+1.新增删除文件可选根据md5删除
+2.更新是否需要解压判断方法
+
+更新时间:2018.11.13">
+    </item>
+    <!--
+      Author: Johnny Wong
+      Time: 2018.11.13
+      Info: 更新配置说明
+            优先执行顺序:
+              文件夹:  创建>移除>移动>复制>备份>还原>重命名
+              文件: 移除(md5)>移除>移动>复制>备份>还原>重命名>下载
+            
+            it标签:
+              key 代表文件夹:
+                key(程序路径@创建或移除或移动或复制或备份或还原或重命名)
+                            @add remove cut copy backup restore rename  
+              value 代表文件:
+                value(程序文件路径@移除或移动或复制或备份或还原或重命名或服务器文件路径)
+                                  @remove cut copy backup restore rename
+    -->
+    <items>
+      <!--
+      key代表对文件夹进行操作
+      value代表对文件进行操作
+      注:文件都可以包含相对路径,所以文件路径都是相对于更新器所在的文件夹来决定的
+      下载文件: 文件名@下载地址
+      下载文件并解压: 文件名@下载地址@unzip
+      移除文件: 文件名@remove
+      移除文件(md5): 文件路径@remove@md5
+      移动文件: 移动前文件@cut@移动后文件
+      复制文件: 复制文件@copy@复制后文件
+      备份文件: 备份文件@backup@备份后文件
+      还原文件: 还原文件@restore@还原后文件
+      重命名文件: 重命名文件前@rename@重命名文件后
+      
+      创建文件夹: 文件夹名@add
+      其他文件夹操作同文件
+      -->
+    </items>
+  </version>
+
+  <version value="V2.4">
+    <!--
+      Author: Johnny Wong
+      Time: 2018.06.02
+      Info: 追加的更新日志
+    -->
+    <item key="updateInfo" value="版本号:V2.4
+1.新增移动,复制,备份,还原以及重命名操作
+2.新增解压操作
+
+更新时间:2018.06.02">
+    </item>
+    <!--
+      Author: Johnny Wong
+      Time: 2018.06.02
+      Info: 更新文件
+            key(程序路径@添加或删除或移动或复制或备份或还原或重命名)      value(程序文件路径@服务器文件路径或删除或移动或复制或备份或还原或重命名)
+                        @add remove cut copy backup restore rename                          @remove cut copy backup restore rename
+    -->
+    <items>
+      <it key="更新日志@remove" value=""></it>
+      <it key="" value="更新日志.txt@remove"></it>
+      <it key="" value="更新日志\更新日志.txt@FileShare\更新日志.txt"></it>
+      <it key="更新日志@add" value=""></it>
+      <it key="" value="FileName.exe@FileShare\FileName.exe"></it>
+    </items>
+  </version>
+
+  <version value="V2.3">
+    <!--
+      Author:Johnny Wong
+      Time:2013-08-26
+      EditTime:2016-07-10
+      Info:追加的更新日志
+    -->
+    <item key="updateInfo" value="版本号:V2.3
+1.更新内容
+2.更新内容
+3.更新内容
+
+更新时间:2016-07-10">
+    </item>
+    <!--
+      Author:Johnny Wong
+      Time:2013.08.26
+      EditTime:2016.07.10
+      Info:更新文件
+            key(程序路径@添加或删除)      value(程序文件路径@服务器文件路径或删除)
+                        @add remove                         @remove
+    -->
+    <items>
+      <it key="更新日志@remove" value=""></it>
+      <it key="" value="更新日志.txt@remove"></it>
+      <it key="" value="更新日志\更新日志.txt@FileShare\更新日志.txt"></it>
+      <it key="更新日志@add" value=""></it>
+      <it key="" value="FileName.exe@FileShare\FileName.exe"></it>
+    </items>
+  </version>
+
+  <version value="V2.2">
+    <!--
+      Author:Johnny Wong
+      Time:2013.08.26
+      EditTime:2016.07.10
+      Info:追加的更新日志
+    -->
+    <item key="updateInfo" value="版本号:V2.2
+1.更新内容
+2.更新内容
+3.更新内容
+
+更新时间:2016-07-10">
+    </item>
+    <!--
+      Author:Johnny Wong
+      Time:2013.08.26
+      EditTime:2016.07.10
+      Info:更新文件
+            key(程序路径@添加或删除)      value(程序文件路径@服务器文件路径或删除)
+                        @add remove                         @remove
+    -->
+    <items>
+      <items>
+        <it key="更新日志@remove" value=""></it>
+        <it key="" value="更新日志.txt@remove"></it>
+        <it key="" value="更新日志\更新日志.txt@FileShare\更新日志.txt"></it>
+        <it key="更新日志@add" value=""></it>
+        <it key="" value="FileName.exe@FileShare\FileName.exe"></it>
+      </items>
+    </items>
+  </version>
+
+</config>
