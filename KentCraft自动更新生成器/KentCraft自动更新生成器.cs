@@ -138,17 +138,43 @@ namespace KentCraft自动更新生成器
                     if (FileHelper.IsEmptyDirectory(temp))
                         tempStr = "\n<it key=\"" + temp.Substring(Environment.CurrentDirectory.Length + 11) +
                               "@backup\" value=\"\"></it>" + tempStr;
+                    else
+                        tempStr = "\n<it key=\"Backup\\" + temp.Substring(Environment.CurrentDirectory.Length + 11) + "@add\" value=\"\"></it>" + tempStr;
                 }
                 result.Append(tempStr);
 
                 //是否添加备份目录
                 tempStr = "";
-                var bf =
-                    FileHelper.GetDirectories(Environment.CurrentDirectory + "\\" + textBox2.Text + "\\更新",
-                        "Backup", false);
-                if (bf.Length > 0)
+                if (!FileHelper.IsEmptyDirectory(Environment.CurrentDirectory + "\\" + textBox2.Text + "\\备份"))
                 {
                     tempStr = "\n<it key=\"Backup@add\" value=\"\"></it>";
+                }
+                result.Append(tempStr);
+
+                //还原文件
+                tempStr = "";
+                var restoreFile =
+                    FileHelper.GetFileNames(Environment.CurrentDirectory + "\\" + textBox2.Text + "\\还原",
+                        "*", true);
+                foreach (var temp in restoreFile)
+                {
+                    tempStr = "\n<it key=\"\" value=\"" + temp.Substring(Environment.CurrentDirectory.Length + 11) +
+                              "@restore\"></it>" + tempStr;
+                }
+                result.Append(tempStr);
+
+                //还原目录
+                tempStr = "";
+                var restoreFolder =
+                    FileHelper.GetDirectories(Environment.CurrentDirectory + "\\" + textBox2.Text + "\\还原",
+                        "*", true);
+                foreach (var temp in restoreFolder)
+                {
+                    if (FileHelper.IsEmptyDirectory(temp))
+                        tempStr = "\n<it key=\"" + temp.Substring(Environment.CurrentDirectory.Length + 11) +
+                              "@restore\" value=\"\"></it>" + tempStr;
+                    else
+                        tempStr = "\n<it key=\"" + temp.Substring(Environment.CurrentDirectory.Length + 11) + "@add\" value=\"\"></it>" + tempStr;
                 }
                 result.Append(tempStr);
 
