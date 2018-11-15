@@ -128,14 +128,14 @@ private const string TipString = "版本号:";
 
 ##### 备份文件夹
 
-备份 一级文件夹 (备份至 Backup 目录)
+备份 一级文件夹 (备份至 Backup 目录对应位置)
 
 ``` xml
 <it key="一级文件夹@backup" value=""></it>
 <it key="Backup@add" value=""></it>
 ```
 
-备份 一级文件夹\二级文件夹 (备份至 Backup\一级文件夹 目录)
+备份 一级文件夹\二级文件夹 (备份至 Backup 目录对应位置)
 
 ``` xml
 <it key="一级文件夹\二级文件夹@backup" value=""></it>
@@ -145,7 +145,7 @@ private const string TipString = "版本号:";
 
 ##### 还原文件夹
 
-还原 一级文件夹 (从Backup目录还原)
+还原 一级文件夹 (从 Backup 目录还原至原位置)
 
 ``` xml
 <it key="一级文件夹@restore" value=""></it>
@@ -227,7 +227,7 @@ private const string TipString = "版本号:";
 <it key="Backup@add" value=""></it>
 ```
 
-备份 一级文件夹\说明.txt (备份至 Backup\一级文件夹 目录)
+备份 一级文件夹\说明.txt (备份至 Backup 目录对应位置)
 
 ``` xml
 <it key="" value="一级文件夹\说明.txt@backup"></it>
@@ -237,7 +237,7 @@ private const string TipString = "版本号:";
 
 ##### 还原文件
 
-还原 说明.txt (从Backup目录还原)
+还原 说明.txt (从 Backup 目录还原至原位置)
 
 ``` xml
 <it key="" value="说明.txt@restore"></it>
@@ -253,7 +253,13 @@ private const string TipString = "版本号:";
 
 ## 修改部分代码
 
-KentCraft智能启动器 v*.exe => 所需更新器名 v*.exe
+``` c#
+"KentCraft智能启动器 v*.exe" => "所需更新器名 v*.exe"
+```
+
+``` c#
+"KentCraft智能启动器 v" => "所需更新器名 v"
+```
 
 ``` c#
 private const string ServerAddress = ""; //更新文件存放目录
