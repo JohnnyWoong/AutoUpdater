@@ -251,6 +251,18 @@ private const string TipString = "版本号:";
 <it key="" value="说明.txt@rename@说明文件.txt"></it>
 ```
 
+将 md5 为 A301B39E88A2347EABE07B3D931581A8 的文件重命名为 说明文件.txt
+
+``` xml
+<it key="" value="A301B39E88A2347EABE07B3D931581A8@rename@说明文件.txt"></it>
+```
+
+将 一级文件夹 下 md5 为 A301B39E88A2347EABE07B3D931581A8 的文件重命名为 说明文件.txt
+
+``` xml
+<it key="" value="一级文件夹\A301B39E88A2347EABE07B3D931581A8@rename@说明文件.txt"></it>
+```
+
 ## 修改部分代码
 
 ``` c#
