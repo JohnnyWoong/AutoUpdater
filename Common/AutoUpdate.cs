@@ -394,7 +394,10 @@ namespace Jnw.Common
                 string operateFolder = "";
                 string operateFile = "";
                 string operateNewFile = "";
+                string ffPath = "";
+                string tffPath = "";
                 string[] files = null;
+                int index = -1;
                 int time = 0;
                 int all = fl.Length + 1;
                 WebClient wc = null;
@@ -448,47 +451,49 @@ namespace Jnw.Common
                         if (!string.IsNullOrWhiteSpace(ss))
                         {
                             operateFolder = ss.Substring(ss.IndexOf("@") + 1);
+                            ffPath = _winformPath + ss.Substring(0, ss.IndexOf("@"));
+                            tffPath = _winformPath + "Temp\\" + ss.Substring(0, ss.IndexOf("@"));
                             //创建文件夹
                             if (operateFolder == "add")
                             {
-                                FileHelper.CreateFolder(_winformPath + ss.Substring(0, ss.IndexOf("@")));
-                                FileHelper.CreateFolder(_winformPath + "Temp\\" + ss.Substring(0, ss.IndexOf("@")));
+                                FileHelper.CreateFolder(ffPath);
+                                FileHelper.CreateFolder(tffPath);
                             }
                             //移除文件夹
                             else if (operateFolder == "remove")
                             {
-                                FileHelper.DeleteFolder(_winformPath + ss.Substring(0, ss.IndexOf("@")));
-                                FileHelper.DeleteFolder(_winformPath + "Temp\\" + ss.Substring(0, ss.IndexOf("@")));
+                                FileHelper.DeleteFolder(ffPath);
+                                FileHelper.DeleteFolder(tffPath);
                             }
                             //移动文件夹
                             else if (operateFolder.Contains("@") && operateFolder.Contains("cut"))
                             {
-                                FileHelper.MoveFolder(_winformPath + ss.Substring(0, ss.IndexOf("@")), _winformPath + ss.Substring(ss.LastIndexOf("@") + 1));
-                                FileHelper.MoveFolder(_winformPath + "Temp\\" + ss.Substring(0, ss.IndexOf("@")), _winformPath + "Temp\\" + ss.Substring(ss.LastIndexOf("@") + 1));
+                                FileHelper.MoveFolder(ffPath, _winformPath + ss.Substring(ss.LastIndexOf("@") + 1));
+                                FileHelper.MoveFolder(tffPath, _winformPath + "Temp\\" + ss.Substring(ss.LastIndexOf("@") + 1));
                             }
                             //复制文件夹
                             else if (operateFolder.Contains("@") && operateFolder.Contains("copy"))
                             {
-                                FileHelper.CopyFolder(_winformPath + ss.Substring(0, ss.IndexOf("@")), _winformPath + ss.Substring(ss.LastIndexOf("@") + 1));
-                                FileHelper.CopyFolder(_winformPath + "Temp\\" + ss.Substring(0, ss.IndexOf("@")), _winformPath + "Temp\\" + ss.Substring(ss.LastIndexOf("@") + 1));
+                                FileHelper.CopyFolder(ffPath, _winformPath + ss.Substring(ss.LastIndexOf("@") + 1));
+                                FileHelper.CopyFolder(tffPath, _winformPath + "Temp\\" + ss.Substring(ss.LastIndexOf("@") + 1));
                             }
                             //备份文件夹
                             else if (operateFolder == "backup")
                             {
-                                FileHelper.CopyFolder(_winformPath + ss.Substring(0, ss.IndexOf("@")), _winformPath + "Backup\\" + ss.Substring(0, ss.IndexOf("@")));
-                                FileHelper.CopyFolder(_winformPath + "Temp\\" + ss.Substring(0, ss.IndexOf("@")), _winformPath + "Temp\\Backup\\" + ss.Substring(0, ss.IndexOf("@")));
+                                FileHelper.CopyFolder(ffPath, _winformPath + "Backup\\" + ss.Substring(0, ss.IndexOf("@")));
+                                FileHelper.CopyFolder(tffPath, _winformPath + "Temp\\Backup\\" + ss.Substring(0, ss.IndexOf("@")));
                             }
                             //还原文件夹
                             else if (operateFolder == "restore")
                             {
-                                FileHelper.CopyFolder(_winformPath + "Backup\\" + ss.Substring(0, ss.IndexOf("@")), _winformPath + ss.Substring(0, ss.IndexOf("@")));
-                                FileHelper.CopyFolder(_winformPath + "Temp\\Backup\\" + ss.Substring(0, ss.IndexOf("@")), _winformPath + "Temp\\" + ss.Substring(0, ss.IndexOf("@")));
+                                FileHelper.CopyFolder(_winformPath + "Backup\\" + ss.Substring(0, ss.IndexOf("@")), ffPath);
+                                FileHelper.CopyFolder(_winformPath + "Temp\\Backup\\" + ss.Substring(0, ss.IndexOf("@")), tffPath);
                             }
                             //重命名文件夹
                             else if (operateFolder.Contains("@") && operateFolder.Contains("rename"))
                             {
-                                FileHelper.MoveFolder(_winformPath + ss.Substring(0, ss.IndexOf("@")), _winformPath + ss.Substring(ss.LastIndexOf("@") + 1));
-                                FileHelper.MoveFolder(_winformPath + "Temp\\" + ss.Substring(0, ss.IndexOf("@")), _winformPath + "Temp\\" + ss.Substring(ss.LastIndexOf("@") + 1));
+                                FileHelper.MoveFolder(ffPath, _winformPath + ss.Substring(ss.LastIndexOf("@") + 1));
+                                FileHelper.MoveFolder(tffPath, _winformPath + "Temp\\" + ss.Substring(ss.LastIndexOf("@") + 1));
                             }
                             //如果没有对应操作,则更新启动器
                             else
@@ -506,14 +511,16 @@ namespace Jnw.Common
                         if (!string.IsNullOrWhiteSpace(ss))
                         {
                             operateFile = ss.Substring(ss.IndexOf("@") + 1);
-                            localPath = (_winformPath + "Temp\\" + ss.Substring(0, ss.IndexOf("@"))).Replace("\\", "/");
+                            localPath = (tffPath).Replace("\\", "/");
                             newFile = _serverAddress + operateFile;
+                            ffPath = _winformPath + ss.Substring(0, ss.IndexOf("@"));
+                            tffPath = _winformPath + "Temp\\" + ss.Substring(0, ss.IndexOf("@"));
                             //移除文件(md5)
                             if (operateFile.Contains("@") && operateFile.Contains("remove"))
                             {
-                                if(FileHelper.IsExistDirectory(_winformPath + ss.Substring(0, ss.IndexOf("@"))))
+                                if (FileHelper.IsExistDirectory(ffPath))
                                 {
-                                    files = FileHelper.GetFileNames(_winformPath + ss.Substring(0, ss.IndexOf("@")));
+                                    files = FileHelper.GetFileNames(ffPath);
                                     foreach (string file in files)
                                     {
                                         if (FileHelper.GetMd5(file) == ss.Substring(ss.LastIndexOf("@") + 1))
@@ -523,9 +530,9 @@ namespace Jnw.Common
                                         }
                                     }
                                 }
-                                if (FileHelper.IsExistDirectory(_winformPath + "Temp\\" + ss.Substring(0, ss.IndexOf("@"))))
+                                if (FileHelper.IsExistDirectory(tffPath))
                                 {
-                                    files = FileHelper.GetFileNames(_winformPath + "Temp\\" + ss.Substring(0, ss.IndexOf("@")));
+                                    files = FileHelper.GetFileNames(tffPath);
                                     foreach (string file in files)
                                     {
                                         if (FileHelper.GetMd5(file) == ss.Substring(ss.LastIndexOf("@") + 1))
@@ -539,48 +546,87 @@ namespace Jnw.Common
                             //移除文件
                             else if (operateFile == "remove")
                             {
-                                FileHelper.DeleteFile(_winformPath + ss.Substring(0, ss.IndexOf("@")));
-                                FileHelper.DeleteFile(_winformPath + "Temp\\" + ss.Substring(0, ss.IndexOf("@")));
+                                FileHelper.DeleteFile(ffPath);
+                                FileHelper.DeleteFile(tffPath);
                                 pb.Invoke(pbMax, 1);
                                 pb.Invoke(pbNow, 1);
                             }
                             //移动文件
                             else if (operateFile.Contains("@") && operateFile.Contains("cut"))
                             {
-                                FileHelper.MoveFile(_winformPath + ss.Substring(0, ss.IndexOf("@")), _winformPath + ss.Substring(ss.LastIndexOf("@") + 1));
-                                FileHelper.MoveFile(_winformPath + "Temp\\" + ss.Substring(0, ss.IndexOf("@")), _winformPath + "Temp\\" + ss.Substring(ss.LastIndexOf("@") + 1));
+                                FileHelper.MoveFile(ffPath, _winformPath + ss.Substring(ss.LastIndexOf("@") + 1));
+                                FileHelper.MoveFile(tffPath, _winformPath + "Temp\\" + ss.Substring(ss.LastIndexOf("@") + 1));
                                 pb.Invoke(pbMax, 1);
                                 pb.Invoke(pbNow, 1);
                             }
                             //复制文件
                             else if (operateFile.Contains("@") && operateFile.Contains("copy"))
                             {
-                                FileHelper.CopyFile(_winformPath + ss.Substring(0, ss.IndexOf("@")), _winformPath + ss.Substring(ss.LastIndexOf("@") + 1));
-                                FileHelper.CopyFile(_winformPath + "Temp\\" + ss.Substring(0, ss.IndexOf("@")), _winformPath + "Temp\\" + ss.Substring(ss.LastIndexOf("@") + 1));
+                                FileHelper.CopyFile(ffPath, _winformPath + ss.Substring(ss.LastIndexOf("@") + 1));
+                                FileHelper.CopyFile(tffPath, _winformPath + "Temp\\" + ss.Substring(ss.LastIndexOf("@") + 1));
                                 pb.Invoke(pbMax, 1);
                                 pb.Invoke(pbNow, 1);
                             }
                             //备份文件
                             else if (operateFile == "backup")
                             {
-                                FileHelper.CopyFile(_winformPath + ss.Substring(0, ss.IndexOf("@")), _winformPath + "Backup\\" + ss.Substring(0, ss.IndexOf("@")));
-                                FileHelper.CopyFile(_winformPath + "Temp\\" + ss.Substring(0, ss.IndexOf("@")), _winformPath + "Temp\\Backup\\" + ss.Substring(0, ss.IndexOf("@")));
+                                FileHelper.CopyFile(ffPath, _winformPath + "Backup\\" + ss.Substring(0, ss.IndexOf("@")));
+                                FileHelper.CopyFile(tffPath, _winformPath + "Temp\\Backup\\" + ss.Substring(0, ss.IndexOf("@")));
                                 pb.Invoke(pbMax, 1);
                                 pb.Invoke(pbNow, 1);
                             }
                             //还原文件
                             else if (operateFile == "restore")
                             {
-                                FileHelper.CopyFile(_winformPath + "Backup\\" + ss.Substring(0, ss.IndexOf("@")), _winformPath + ss.Substring(0, ss.IndexOf("@")));
-                                FileHelper.CopyFile(_winformPath + "Temp\\Backup\\" + ss.Substring(0, ss.IndexOf("@")), _winformPath + "Temp\\" + ss.Substring(0, ss.IndexOf("@")));
+                                FileHelper.CopyFile(_winformPath + "Backup\\" + ss.Substring(0, ss.IndexOf("@")), ffPath);
+                                FileHelper.CopyFile(_winformPath + "Temp\\Backup\\" + ss.Substring(0, ss.IndexOf("@")), tffPath);
                                 pb.Invoke(pbMax, 1);
                                 pb.Invoke(pbNow, 1);
                             }
                             //重命名文件
                             else if (operateFile.Contains("@") && operateFile.Contains("rename"))
                             {
-                                FileHelper.MoveFile(_winformPath + ss.Substring(0, ss.IndexOf("@")), _winformPath + ss.Substring(ss.LastIndexOf("@") + 1));
-                                FileHelper.MoveFile(_winformPath + "Temp\\" + ss.Substring(0, ss.IndexOf("@")), _winformPath + "Temp\\" + ss.Substring(ss.LastIndexOf("@") + 1));
+                                //根据md5重命名文件
+                                if (FileHelper.IsMd5(ss.Substring(0, ss.IndexOf("@"))))
+                                {
+                                    if (ss.IndexOf("\\") > -1)
+                                    {
+                                        index = ss.LastIndexOf("\\");
+                                    }
+                                    else
+                                    {
+                                        index = -1;
+                                    }
+                                    if (FileHelper.IsExistDirectory(_winformPath + ss.Substring(0, index == -1 ? 0 : index)))
+                                    {
+                                        files = FileHelper.GetFileNames(_winformPath + ss.Substring(0, index == -1 ? 0 : index));
+                                        foreach (string file in files)
+                                        {
+                                            if (FileHelper.GetMd5(file) == ss.Substring(index + 1, 32))
+                                            {
+                                                FileHelper.MoveFile(file, FileHelper.GetDirectoryName(file) + "\\" + ss.Substring(ss.LastIndexOf("@") + 1));
+                                                break;
+                                            }
+                                        }
+                                    }
+                                    if (FileHelper.IsExistDirectory(_winformPath + "Temp\\" + ss.Substring(0, index == -1 ? 0 : index)))
+                                    {
+                                        files = FileHelper.GetFileNames(_winformPath + "Temp\\" + ss.Substring(0, index == -1 ? 0 : index));
+                                        foreach (string file in files)
+                                        {
+                                            if (FileHelper.GetMd5(file) == ss.Substring(index + 1, 32))
+                                            {
+                                                FileHelper.MoveFile(file, FileHelper.GetDirectoryName(file) + "\\" + ss.Substring(ss.LastIndexOf("@") + 1));
+                                                break;
+                                            }
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    FileHelper.MoveFile(ffPath, _winformPath + ss.Substring(ss.LastIndexOf("@") + 1));
+                                    FileHelper.MoveFile(tffPath, _winformPath + "Temp\\" + ss.Substring(ss.LastIndexOf("@") + 1));
+                                }
                                 pb.Invoke(pbMax, 1);
                                 pb.Invoke(pbNow, 1);
                             }

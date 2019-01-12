@@ -2,6 +2,7 @@
 using System.IO;
 using System.Security.Cryptography;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace Jnw.Common
 {
@@ -276,6 +277,7 @@ namespace Jnw.Common
         /// 移动文件(剪贴--粘贴)
         /// Author: Johnny Wong
         /// Time: 2018.05.23
+        /// LastEditTime: 20190112
         /// </summary>
         /// <param name="dir1">要移动的文件的路径及全名(包括后缀)</param>
         /// <param name="dir2">文件移动到新的位置,并指定新的文件名</param>
@@ -283,7 +285,7 @@ namespace Jnw.Common
         {
             dir1 = dir1.Replace("/", "\\");
             dir2 = dir2.Replace("/", "\\");
-            if (File.Exists(dir1))
+            if (File.Exists(dir1) && dir1 != dir2)
             {
                 if (File.Exists(dir2))
                 {
@@ -868,6 +870,22 @@ namespace Jnw.Common
             inputStream.Close();
             md5 = md5.Replace("-", "");
             return md5;
+        }
+
+        /// <summary>
+        /// 是否为md5验证文件
+        /// Author: Johnny
+        /// Time: 2019.01.12
+        /// </summary>
+        /// <param name="path">文件地址</param>
+        /// <returns></returns>
+        public static bool IsMd5(string path)
+        {
+            if (path.IndexOf("\\") > -1)
+            {
+                path = path.Substring(path.LastIndexOf("\\") + 1);
+            }
+            return Regex.IsMatch(path, "^[0-9a-zA-Z]{32}$");
         }
         #endregion
     }
