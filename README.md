@@ -193,13 +193,13 @@ private const string TipString = "版本号:";
 移除程序目录下 md5 为 D41D8CD98F00B204E9800998ECF8427E 的文件
 
 ``` xml
-<it key="" value="@remove@D41D8CD98F00B204E9800998ECF8427E"></it>
+<it key="" value="D41D8CD98F00B204E9800998ECF8427E@remove"></it>
 ```
 
 移除 一级文件夹 下 md5 为 D41D8CD98F00B204E9800998ECF8427E 的文件
 
 ``` xml
-<it key="" value="一级文件夹@remove@D41D8CD98F00B204E9800998ECF8427E"></it>
+<it key="" value="一级文件夹\D41D8CD98F00B204E9800998ECF8427E@remove"></it>
 ```
 
 ##### 移动文件
@@ -313,4 +313,5 @@ au.OpenUpdate("KentCraft.exe"); //所需程序文件名
 如要根据文件名删除文件请取消勾选 md5
 
 ## 已知bug
+
 1. 解压压缩文件内如有中文文件名可能会出现乱码

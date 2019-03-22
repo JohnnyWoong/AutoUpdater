@@ -103,7 +103,7 @@ namespace KentCraft自动更新生成器
                         {
                             tt = FileHelper.GetDirectoryName(temp).Substring(Environment.CurrentDirectory.Length + 11);
                         }
-                        tempStr = string.Format("\n<it key=\"\" value=\"{0}@remove@{1}\"></it>{2}", tt, FileHelper.GetMd5(temp), tempStr);
+                        tempStr = string.Format("\n<it key=\"\" value=\"{0}{1}@remove\"></it>{2}", tt, tt != "" ? "\\" + FileHelper.GetMd5(temp) : FileHelper.GetMd5(temp), tempStr);
                     }
                 }
                 else

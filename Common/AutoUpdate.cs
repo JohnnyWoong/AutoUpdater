@@ -368,7 +368,7 @@ namespace Jnw.Common
         /// 更新文件
         /// Author:Johnny Wong
         /// Time:2015-03-06
-        /// LastEditTime:2018-05-23
+        /// LastEditTime:2019-03-22
         /// <param name="bgw">BackgroundWorker实体</param>
         /// <param name="pb">进度条实体</param>
         /// </summary>
@@ -462,13 +462,13 @@ namespace Jnw.Common
                                 FileHelper.DeleteFolder(_winformPath + "Temp\\" + ss.Substring(0, ss.IndexOf("@")));
                             }
                             //移动文件夹
-                            else if (operateFolder.Contains("@") && operateFolder.Contains("cut"))
+                            else if (operateFolder.Contains("cut") && operateFolder.Contains("@"))
                             {
                                 FileHelper.MoveFolder(_winformPath + ss.Substring(0, ss.IndexOf("@")), _winformPath + ss.Substring(ss.LastIndexOf("@") + 1));
                                 FileHelper.MoveFolder(_winformPath + "Temp\\" + ss.Substring(0, ss.IndexOf("@")), _winformPath + "Temp\\" + ss.Substring(ss.LastIndexOf("@") + 1));
                             }
                             //复制文件夹
-                            else if (operateFolder.Contains("@") && operateFolder.Contains("copy"))
+                            else if (operateFolder.Contains("copy") && operateFolder.Contains("@"))
                             {
                                 FileHelper.CopyFolder(_winformPath + ss.Substring(0, ss.IndexOf("@")), _winformPath + ss.Substring(ss.LastIndexOf("@") + 1));
                                 FileHelper.CopyFolder(_winformPath + "Temp\\" + ss.Substring(0, ss.IndexOf("@")), _winformPath + "Temp\\" + ss.Substring(ss.LastIndexOf("@") + 1));
@@ -486,7 +486,7 @@ namespace Jnw.Common
                                 FileHelper.CopyFolder(_winformPath + "Temp\\Backup\\" + ss.Substring(0, ss.IndexOf("@")), _winformPath + "Temp\\" + ss.Substring(0, ss.IndexOf("@")));
                             }
                             //重命名文件夹
-                            else if (operateFolder.Contains("@") && operateFolder.Contains("rename"))
+                            else if (operateFolder.Contains("rename") && operateFolder.Contains("@"))
                             {
                                 FileHelper.MoveFolder(_winformPath + ss.Substring(0, ss.IndexOf("@")), _winformPath + ss.Substring(ss.LastIndexOf("@") + 1));
                                 FileHelper.MoveFolder(_winformPath + "Temp\\" + ss.Substring(0, ss.IndexOf("@")), _winformPath + "Temp\\" + ss.Substring(ss.LastIndexOf("@") + 1));
@@ -510,26 +510,35 @@ namespace Jnw.Common
                             localPath = (_winformPath + "Temp\\" + ss.Substring(0, ss.IndexOf("@"))).Replace("\\", "/");
                             newFile = _serverAddress + operateFile;
                             //移除文件(md5)
-                            if (operateFile.Contains("@") && operateFile.Contains("remove"))
+                            if (operateFile == "remove" && FileHelper.IsMd5(ss.Substring(0, ss.IndexOf("@"))))
                             {
-                                if(FileHelper.IsExistDirectory(_winformPath + ss.Substring(0, ss.IndexOf("@"))))
+                                if (ss.IndexOf("\\") > -1)
                                 {
-                                    files = FileHelper.GetFileNames(_winformPath + ss.Substring(0, ss.IndexOf("@")));
+                                    index = ss.LastIndexOf("\\");
+                                }
+                                else
+                                {
+                                    index = -1;
+                                }
+
+                                if (FileHelper.IsExistDirectory(_winformPath + ss.Substring(0, index == -1 ? 0 : index)))
+                                {
+                                    files = FileHelper.GetFileNames(_winformPath + ss.Substring(0, index == -1 ? 0 : index));
                                     foreach (string file in files)
                                     {
-                                        if (FileHelper.GetMd5(file) == ss.Substring(ss.LastIndexOf("@") + 1))
+                                        if (FileHelper.GetMd5(file) == ss.Substring(index + 1, 32))
                                         {
                                             FileHelper.DeleteFile(file);
                                             break;
                                         }
                                     }
                                 }
-                                if (FileHelper.IsExistDirectory(_winformPath + "Temp\\" + ss.Substring(0, ss.IndexOf("@"))))
+                                if (FileHelper.IsExistDirectory(_winformPath + "Temp\\" + ss.Substring(0, index == -1 ? 0 : index)))
                                 {
-                                    files = FileHelper.GetFileNames(_winformPath + "Temp\\" + ss.Substring(0, ss.IndexOf("@")));
+                                    files = FileHelper.GetFileNames(_winformPath + "Temp\\" + ss.Substring(0, index == -1 ? 0 : index));
                                     foreach (string file in files)
                                     {
-                                        if (FileHelper.GetMd5(file) == ss.Substring(ss.LastIndexOf("@") + 1))
+                                        if (FileHelper.GetMd5(file) == ss.Substring(index + 1, 32))
                                         {
                                             FileHelper.DeleteFile(file);
                                             break;
@@ -546,7 +555,7 @@ namespace Jnw.Common
                                 pb.Invoke(pbNow, 1);
                             }
                             //移动文件
-                            else if (operateFile.Contains("@") && operateFile.Contains("cut"))
+                            else if (operateFile.Contains("cut") && operateFile.Contains("@"))
                             {
                                 FileHelper.MoveFile(_winformPath + ss.Substring(0, ss.IndexOf("@")), _winformPath + ss.Substring(ss.LastIndexOf("@") + 1));
                                 FileHelper.MoveFile(_winformPath + "Temp\\" + ss.Substring(0, ss.IndexOf("@")), _winformPath + "Temp\\" + ss.Substring(ss.LastIndexOf("@") + 1));
@@ -554,7 +563,7 @@ namespace Jnw.Common
                                 pb.Invoke(pbNow, 1);
                             }
                             //复制文件
-                            else if (operateFile.Contains("@") && operateFile.Contains("copy"))
+                            else if (operateFile.Contains("copy") && operateFile.Contains("@"))
                             {
                                 FileHelper.CopyFile(_winformPath + ss.Substring(0, ss.IndexOf("@")), _winformPath + ss.Substring(ss.LastIndexOf("@") + 1));
                                 FileHelper.CopyFile(_winformPath + "Temp\\" + ss.Substring(0, ss.IndexOf("@")), _winformPath + "Temp\\" + ss.Substring(ss.LastIndexOf("@") + 1));
@@ -578,7 +587,7 @@ namespace Jnw.Common
                                 pb.Invoke(pbNow, 1);
                             }
                             //重命名文件
-                            else if (operateFile.Contains("@") && operateFile.Contains("rename"))
+                            else if (operateFile.Contains("rename") && operateFile.Contains("@"))
                             {
                                 //根据md5重命名文件
                                 if (FileHelper.IsMd5(ss.Substring(0, ss.IndexOf("@"))))
