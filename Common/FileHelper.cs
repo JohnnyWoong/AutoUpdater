@@ -13,6 +13,16 @@ namespace Jnw.Common
     /// </summary>
     public static class FileHelper
     {
+        #region 检测是否存在
+        /// <summary>
+        /// 检测指定文件是否存在
+        /// </summary>
+        /// <param name="filePath">文件的绝对路径</param>        
+        public static bool IsExistFile(string filePath)
+        {
+            return File.Exists(filePath);
+        }
+
         /// <summary>
         /// 检测指定目录是否存在
         /// </summary>
@@ -23,104 +33,6 @@ namespace Jnw.Common
             return Directory.Exists(directoryPath);
         }
 
-        #region 检测指定文件是否存在,如果存在返回true
-        /// <summary>
-        /// 检测指定文件是否存在,如果存在则返回true。
-        /// </summary>
-        /// <param name="filePath">文件的绝对路径</param>        
-        public static bool IsExistFile(string filePath)
-        {
-            return File.Exists(filePath);
-        }
-        #endregion
-
-        #region 获取指定目录中的文件列表
-        /// <summary>
-        /// 获取指定目录中所有文件列表(不包含子目录)
-        /// Author: Johnny Wong
-        /// Time: 2018.11.13
-        /// </summary>
-        /// <param name="directoryPath">指定目录的绝对路径</param>        
-        public static string[] GetFileNames(string directoryPath)
-        {
-            //如果目录不存在，则抛出异常
-            if (!IsExistDirectory(directoryPath))
-            {
-                throw new FileNotFoundException();
-            }
-
-            //获取文件列表
-            return Directory.GetFiles(directoryPath);
-        }
-        #endregion
-
-        #region
-        /// <summary>
-        /// 获取文件所在目录
-        /// Author: Johnny Wong
-        /// Time: 2018.11.13
-        /// </summary>
-        /// <param name="file"></param>
-        /// <returns></returns>
-        public static string GetDirectoryName(string file)
-        {
-            return Path.GetDirectoryName(file);
-        }
-        #endregion
-
-        #region 获取指定目录中所有子目录列表,若要搜索嵌套的子目录列表,请使用重载方法.
-        /// <summary>
-        /// 获取指定目录中所有子目录列表,若要搜索嵌套的子目录列表,请使用重载方法.
-        /// </summary>
-        /// <param name="directoryPath">指定目录的绝对路径</param>        
-        public static string[] GetDirectories(string directoryPath)
-        {
-            try
-            {
-                return Directory.GetDirectories(directoryPath);
-            }
-            catch (IOException ex)
-            {
-                throw ex;
-            }
-        }
-        #endregion
-
-        #region 获取指定目录及子目录中所有文件列表
-        /// <summary>
-        /// 获取指定目录及子目录中所有文件列表
-        /// </summary>
-        /// <param name="directoryPath">指定目录的绝对路径</param>
-        /// <param name="searchPattern">模式字符串，"*"代表0或N个字符，"?"代表1个字符。
-        /// 范例："Log*.xml"表示搜索所有以Log开头的Xml文件。</param>
-        /// <param name="isSearchChild">是否搜索子目录</param>
-        public static string[] GetFileNames(string directoryPath, string searchPattern, bool isSearchChild)
-        {
-            //如果目录不存在，则抛出异常
-            if (!IsExistDirectory(directoryPath))
-            {
-                throw new FileNotFoundException();
-            }
-
-            try
-            {
-                if (isSearchChild)
-                {
-                    return Directory.GetFiles(directoryPath, searchPattern, SearchOption.AllDirectories);
-                }
-                else
-                {
-                    return Directory.GetFiles(directoryPath, searchPattern, SearchOption.TopDirectoryOnly);
-                }
-            }
-            catch (IOException ex)
-            {
-                throw ex;
-            }
-        }
-        #endregion
-
-        #region 检测指定目录是否为空
         /// <summary>
         /// 检测指定目录是否为空
         /// </summary>
@@ -152,9 +64,7 @@ namespace Jnw.Common
                 return true;
             }
         }
-        #endregion
 
-        #region 检测指定目录中是否存在指定的文件
         /// <summary>
         /// 检测指定目录中是否存在指定的文件,若要搜索子目录请使用重载方法.
         /// </summary>
@@ -217,47 +127,117 @@ namespace Jnw.Common
         }
         #endregion
 
-        #region 创建目录
+        #region 获取文件列表
         /// <summary>
-        /// 创建目录
+        /// 获取指定目录中所有文件列表(不包含子目录)
+        /// Author: Johnny Wong
+        /// Time: 2018.11.13
         /// </summary>
-        /// <param name="dir">要创建的目录路径包括目录名</param>
-        public static void CreateFolder(string dir)
+        /// <param name="directoryPath">指定目录的绝对路径</param>        
+        public static string[] GetFileNames(string directoryPath)
         {
-            if (dir.Length == 0) return;
-            if (!Directory.Exists(dir))
-                Directory.CreateDirectory(dir);
+            //如果目录不存在，则抛出异常
+            if (!IsExistDirectory(directoryPath))
+            {
+                throw new FileNotFoundException();
+            }
+
+            //获取文件列表
+            return Directory.GetFiles(directoryPath);
+        }
+
+        /// <summary>
+        /// 获取指定目录及子目录中所有文件列表
+        /// </summary>
+        /// <param name="directoryPath">指定目录的绝对路径</param>
+        /// <param name="searchPattern">模式字符串，"*"代表0或N个字符，"?"代表1个字符。
+        /// 范例："Log*.xml"表示搜索所有以Log开头的Xml文件。</param>
+        /// <param name="isSearchChild">是否搜索子目录</param>
+        public static string[] GetFileNames(string directoryPath, string searchPattern, bool isSearchChild)
+        {
+            //如果目录不存在，则抛出异常
+            if (!IsExistDirectory(directoryPath))
+            {
+                throw new FileNotFoundException();
+            }
+
+            try
+            {
+                if (isSearchChild)
+                {
+                    return Directory.GetFiles(directoryPath, searchPattern, SearchOption.AllDirectories);
+                }
+                else
+                {
+                    return Directory.GetFiles(directoryPath, searchPattern, SearchOption.TopDirectoryOnly);
+                }
+            }
+            catch (IOException ex)
+            {
+                throw ex;
+            }
         }
         #endregion
 
-        #region 删除目录
+        #region 获取目录列表
         /// <summary>
-        /// 删除目录
+        /// 获取文件所在目录
+        /// Author: Johnny Wong
+        /// Time: 2018.11.13
         /// </summary>
-        /// <param name="dir">要删除的目录路径和名称</param>
-        public static void DeleteDir(string dir)
+        /// <param name="file"></param>
+        /// <returns></returns>
+        public static string GetDirectoryName(string file)
         {
-            if (dir.Length == 0) return;
-            if (Directory.Exists(dir))
-                Directory.Delete(dir);
+            return Path.GetDirectoryName(file);
+        }
+
+        /// <summary>
+        /// 获取指定目录中所有子目录列表,若要搜索嵌套的子目录列表,请使用重载方法.
+        /// </summary>
+        /// <param name="directoryPath">指定目录的绝对路径</param>        
+        public static string[] GetDirectories(string directoryPath)
+        {
+            try
+            {
+                return Directory.GetDirectories(directoryPath);
+            }
+            catch (IOException ex)
+            {
+                throw ex;
+            }
+        }
+
+        /// <summary>
+        /// 获取指定目录及子目录中所有子目录列表
+        /// </summary>
+        /// <param name="directoryPath">指定目录的绝对路径</param>
+        /// <param name="searchPattern">模式字符串，"*"代表0或N个字符，"?"代表1个字符。
+        /// 范例："Log*.xml"表示搜索所有以Log开头的Xml文件。</param>
+        /// <param name="isSearchChild">是否搜索子目录</param>
+        public static string[] GetDirectories(string directoryPath, string searchPattern, bool isSearchChild)
+        {
+            try
+            {
+                if (isSearchChild)
+                {
+                    return Directory.GetDirectories(directoryPath, searchPattern, SearchOption.AllDirectories);
+                }
+                else
+                {
+                    return Directory.GetDirectories(directoryPath, searchPattern, SearchOption.TopDirectoryOnly);
+                }
+            }
+            catch (IOException ex)
+            {
+                throw ex;
+            }
         }
         #endregion
 
-        #region 删除文件
+        #region 目录文件操作
         /// <summary>
-        /// 删除文件
-        /// </summary>
-        /// <param name="file">要删除的文件路径和名称</param>
-        public static void DeleteFile(string file)
-        {
-            if (File.Exists(file))
-                File.Delete(file);
-        }
-        #endregion
-
-        #region 创建文件
-        /// <summary>
-        /// 创建文件
+        /// 创建带内容的文件
         /// </summary>
         /// <param name="dir">带后缀的文件名</param>
         /// <param name="pagestr">文件内容</param>
@@ -270,9 +250,77 @@ namespace Jnw.Common
             sw.Write(pagestr);
             sw.Close();
         }
-        #endregion
 
-        #region 移动文件(剪贴--粘贴)
+        /// <summary>
+        /// 创建文件
+        /// </summary>
+        /// <param name="filePath">文件的绝对路径</param>
+        public static void CreateFile(string filePath)
+        {
+            try
+            {
+                //如果文件不存在则创建该文件
+                if (!IsExistFile(filePath))
+                {
+                    //创建一个FileInfo对象
+                    FileInfo file = new FileInfo(filePath);
+
+                    //创建文件
+                    FileStream fs = file.Create();
+
+                    //关闭文件流
+                    fs.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                //LogHelper.WriteTraceLog(TraceLogLevel.Error, ex.Message);
+                throw ex;
+            }
+        }
+
+        /// <summary>
+        /// 创建文件,并将字节流写入文件.
+        /// </summary>
+        /// <param name="filePath">文件的绝对路径</param>
+        /// <param name="buffer">二进制流数据</param>
+        public static void CreateFile(string filePath, byte[] buffer)
+        {
+            try
+            {
+                //如果文件不存在则创建该文件
+                if (!IsExistFile(filePath))
+                {
+                    //创建一个FileInfo对象
+                    FileInfo file = new FileInfo(filePath);
+
+                    //创建文件
+                    FileStream fs = file.Create();
+
+                    //写入二进制流
+                    fs.Write(buffer, 0, buffer.Length);
+
+                    //关闭文件流
+                    fs.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                //LogHelper.WriteTraceLog(TraceLogLevel.Error, ex.Message);
+                throw ex;
+            }
+        }
+
+        /// <summary>
+        /// 删除文件
+        /// </summary>
+        /// <param name="file">要删除的文件路径和名称</param>
+        public static void DeleteFile(string file)
+        {
+            if (File.Exists(file))
+                File.Delete(file);
+        }
+
         /// <summary>
         /// 移动文件(剪贴--粘贴)
         /// Author: Johnny Wong
@@ -294,9 +342,7 @@ namespace Jnw.Common
                 File.Move(dir1, dir2);
             }
         }
-        #endregion
 
-        #region 复制文件
         /// <summary>
         /// 复制文件
         /// </summary>
@@ -311,28 +357,62 @@ namespace Jnw.Common
                 File.Copy(dir1, dir2, true);
             }
         }
-        #endregion
 
-        #region 根据时间得到目录名 / 格式:yyyyMMdd 或者 HHmmssff
         /// <summary>
-        /// 根据时间得到目录名yyyyMMdd
+        /// 清空文件内容
         /// </summary>
-        /// <returns></returns>
-        public static string GetDateDir()
+        /// <param name="filePath">文件的绝对路径</param>
+        public static void ClearFile(string filePath)
         {
-            return DateTime.Now.ToString("yyyyMMdd");
-        }
-        /// <summary>
-        /// 根据时间得到文件名HHmmssff
-        /// </summary>
-        /// <returns></returns>
-        public static string GetDateFile()
-        {
-            return DateTime.Now.ToString("HHmmssff");
-        }
-        #endregion
+            //删除文件
+            File.Delete(filePath);
 
-        #region 复制文件夹
+            //重新创建该文件
+            CreateFile(filePath);
+        }
+
+        /// <summary>
+        /// 创建目录
+        /// </summary>
+        /// <param name="dir">要创建的目录路径包括目录名</param>
+        public static void CreateFolder(string dir)
+        {
+            if (dir.Length == 0) return;
+            if (!Directory.Exists(dir))
+                Directory.CreateDirectory(dir);
+        }
+
+        /// <summary>
+        /// 删除目录
+        /// </summary>
+        /// <param name="dir">要删除的目录路径和名称</param>
+        public static void DeleteDir(string dir)
+        {
+            if (dir.Length == 0) return;
+            if (Directory.Exists(dir))
+                Directory.Delete(dir);
+        }
+
+        /// <summary>
+        /// 移动文件夹(递归)
+        /// Author:Johnny Wong
+        /// Time:2018.01.31
+        /// LastEditTime: 2018.05.23
+        /// </summary>
+        /// <param name="varFromDirectory">源文件夹路径</param>
+        /// <param name="varToDirectory">目标文件夹路径</param>
+        public static void MoveFolder(string varFromDirectory, string varToDirectory)
+        {
+            if (!Directory.Exists(varFromDirectory)) return;
+
+            if (Directory.Exists(varToDirectory))
+            {
+                DeleteFolder(varToDirectory);
+            }
+
+            Directory.Move(varFromDirectory, varToDirectory);
+        }
+
         /// <summary>
         /// 复制文件夹(递归)
         /// Author:Johnny Wong
@@ -366,27 +446,7 @@ namespace Jnw.Common
         }
 
         /// <summary>
-        /// 移动文件夹(递归)
-        /// Author:Johnny Wong
-        /// Time:2018.01.31
-        /// LastEditTime: 2018.05.23
-        /// </summary>
-        /// <param name="varFromDirectory">源文件夹路径</param>
-        /// <param name="varToDirectory">目标文件夹路径</param>
-        public static void MoveFolder(string varFromDirectory, string varToDirectory)
-        {
-            if (!Directory.Exists(varFromDirectory)) return;
-
-            if (Directory.Exists(varToDirectory))
-            {
-                DeleteFolder(varToDirectory);
-            }
-
-            Directory.Move(varFromDirectory, varToDirectory);
-        }
-
-        /// <summary>
-        /// 复制文件夹(递归)
+        /// 复制文件夹并允许忽略指定错误(递归)
         /// Author:Johnny Wong
         /// Time:2018.01.12
         /// </summary>
@@ -425,27 +485,43 @@ namespace Jnw.Common
                 }
             }
         }
-        #endregion
 
-        #region 检查文件,如果文件不存在则创建
         /// <summary>
-        /// 检查文件,如果文件不存在则创建  
+        /// 删除指定目录及其所有子目录
         /// </summary>
-        /// <param name="FilePath">路径,包括文件名</param>
-        public static void ExistsFile(string FilePath)
+        /// <param name="directoryPath">指定目录的绝对路径</param>
+        public static void DeleteFolder(string directoryPath)
         {
-            //if(!File.Exists(FilePath))    
-            //File.Create(FilePath);    
-            //以上写法会报错,详细解释请看下文.........   
-            if (!File.Exists(FilePath))
+            if (IsExistDirectory(directoryPath))
             {
-                FileStream fs = File.Create(FilePath);
-                fs.Close();
+                Directory.Delete(directoryPath, true);
             }
         }
-        #endregion
 
-        #region 删除指定文件夹对应其他文件夹里的文件
+        /// <summary>
+        /// 清空指定目录下所有文件及子目录,但该目录依然保存.
+        /// </summary>
+        /// <param name="directoryPath">指定目录的绝对路径</param>
+        public static void ClearDirectory(string directoryPath)
+        {
+            if (IsExistDirectory(directoryPath))
+            {
+                //删除目录中所有的文件
+                string[] fileNames = GetFileNames(directoryPath);
+                for (int i = 0; i < fileNames.Length; i++)
+                {
+                    DeleteFile(fileNames[i]);
+                }
+
+                //删除目录中所有的子目录
+                string[] directoryNames = GetDirectories(directoryPath);
+                for (int i = 0; i < directoryNames.Length; i++)
+                {
+                    DeleteFolder(directoryNames[i]);
+                }
+            }
+        }
+
         /// <summary>
         /// 删除指定文件夹对应其他文件夹里的文件
         /// </summary>
@@ -480,82 +556,7 @@ namespace Jnw.Common
         }
         #endregion
 
-        #region 从文件的绝对路径中获取文件名( 包含扩展名 )
-        /// <summary>
-        /// 从文件的绝对路径中获取文件名( 包含扩展名 )
-        /// </summary>
-        /// <param name="filePath">文件的绝对路径</param>        
-        public static string GetFileName(string filePath)
-        {
-            //获取文件的名称
-            FileInfo fi = new FileInfo(filePath);
-            return fi.Name;
-        }
-        #endregion
-
-        #region 创建一个文件
-        /// <summary>
-        /// 创建一个文件。
-        /// </summary>
-        /// <param name="filePath">文件的绝对路径</param>
-        public static void CreateFile(string filePath)
-        {
-            try
-            {
-                //如果文件不存在则创建该文件
-                if (!IsExistFile(filePath))
-                {
-                    //创建一个FileInfo对象
-                    FileInfo file = new FileInfo(filePath);
-
-                    //创建文件
-                    FileStream fs = file.Create();
-
-                    //关闭文件流
-                    fs.Close();
-                }
-            }
-            catch (Exception ex)
-            {
-                //LogHelper.WriteTraceLog(TraceLogLevel.Error, ex.Message);
-                throw ex;
-            }
-        }
-
-        /// <summary>
-        /// 创建一个文件,并将字节流写入文件。
-        /// </summary>
-        /// <param name="filePath">文件的绝对路径</param>
-        /// <param name="buffer">二进制流数据</param>
-        public static void CreateFile(string filePath, byte[] buffer)
-        {
-            try
-            {
-                //如果文件不存在则创建该文件
-                if (!IsExistFile(filePath))
-                {
-                    //创建一个FileInfo对象
-                    FileInfo file = new FileInfo(filePath);
-
-                    //创建文件
-                    FileStream fs = file.Create();
-
-                    //写入二进制流
-                    fs.Write(buffer, 0, buffer.Length);
-
-                    //关闭文件流
-                    fs.Close();
-                }
-            }
-            catch (Exception ex)
-            {
-                //LogHelper.WriteTraceLog(TraceLogLevel.Error, ex.Message);
-                throw ex;
-            }
-        }
-        #endregion
-
-        #region 获取文本文件的行数
+        #region 读取写入
         /// <summary>
         /// 获取文本文件的行数
         /// </summary>
@@ -568,9 +569,7 @@ namespace Jnw.Common
             //返回行数
             return rows.Length;
         }
-        #endregion
 
-        #region 获取文本文件的内容
         /// <summary>
         /// 获取文本文件的内容
         /// Author:Johnny Wong
@@ -583,7 +582,7 @@ namespace Jnw.Common
         }
 
         /// <summary>
-        /// 获取文本文件的内容
+        /// 获取文本文件的内容(指定编码)
         /// Author:Johnny Wong
         /// Time:2013-08-24
         /// </summary>
@@ -597,9 +596,7 @@ namespace Jnw.Common
             //返回数组
             return rows;
         }
-        #endregion
 
-        #region 获取一个文件的长度
         /// <summary>
         /// 获取一个文件的长度,单位为Byte
         /// </summary>
@@ -612,37 +609,6 @@ namespace Jnw.Common
             //获取文件的大小
             return (int)fi.Length;
         }
-        #endregion
-
-        #region 获取指定目录中的子目录列表
-        /// <summary>
-        /// 获取指定目录及子目录中所有子目录列表
-        /// </summary>
-        /// <param name="directoryPath">指定目录的绝对路径</param>
-        /// <param name="searchPattern">模式字符串，"*"代表0或N个字符，"?"代表1个字符。
-        /// 范例："Log*.xml"表示搜索所有以Log开头的Xml文件。</param>
-        /// <param name="isSearchChild">是否搜索子目录</param>
-        public static string[] GetDirectories(string directoryPath, string searchPattern, bool isSearchChild)
-        {
-            try
-            {
-                if (isSearchChild)
-                {
-                    return Directory.GetDirectories(directoryPath, searchPattern, SearchOption.AllDirectories);
-                }
-                else
-                {
-                    return Directory.GetDirectories(directoryPath, searchPattern, SearchOption.TopDirectoryOnly);
-                }
-            }
-            catch (IOException ex)
-            {
-                throw ex;
-            }
-        }
-        #endregion
-
-        #region 向文本文件写入内容
 
         /// <summary>
         /// 向文本文件中写入内容
@@ -658,7 +624,7 @@ namespace Jnw.Common
         }
 
         /// <summary>
-        /// 向文本文件中写入内容
+        /// 向文本文件中写入内容(指定编码)
         /// Author:Johnny Wong
         /// Time:2013-08-24
         /// </summary>
@@ -671,9 +637,6 @@ namespace Jnw.Common
             File.WriteAllText(filePath, text, Encoding.GetEncoding(encoding));
         }
 
-        #endregion
-
-        #region 向文本文件的尾部追加内容
         /// <summary>
         /// 向文本文件的尾部追加内容
         /// Author:Johnny Wong
@@ -687,7 +650,7 @@ namespace Jnw.Common
         }
 
         /// <summary>
-        /// 向文本文件的尾部追加内容
+        /// 向文本文件的尾部追加内容(指定编码)
         /// Author:Johnny Wong
         /// Time:2013-08-24
         /// </summary>
@@ -698,58 +661,18 @@ namespace Jnw.Common
         {
             File.AppendAllText(filePath, content, Encoding.GetEncoding(encoding));
         }
-        #endregion
 
-        #region 将现有文件的内容复制到新文件中
         /// <summary>
-        /// 将源文件的内容复制到目标文件中
-        /// </summary>
-        /// <param name="sourceFilePath">源文件的绝对路径</param>
-        /// <param name="destFilePath">目标文件的绝对路径</param>
-        public static void Copy(string sourceFilePath, string destFilePath)
-        {
-            File.Copy(sourceFilePath, destFilePath, true);
-        }
-        #endregion
-
-        #region 将文件移动到指定目录
-        /// <summary>
-        /// 将文件移动到指定目录
-        /// </summary>
-        /// <param name="sourceFilePath">需要移动的源文件的绝对路径</param>
-        /// <param name="descDirectoryPath">移动到的目录的绝对路径</param>
-        public static void Move(string sourceFilePath, string descDirectoryPath)
-        {
-            //获取源文件的名称
-            string sourceFileName = GetFileName(sourceFilePath);
-
-            if (IsExistDirectory(descDirectoryPath))
-            {
-                //如果目标中存在同名文件,则删除
-                if (IsExistFile(descDirectoryPath + "\\" + sourceFileName))
-                {
-                    DeleteFile(descDirectoryPath + "\\" + sourceFileName);
-                }
-                //将文件移动到指定目录
-                File.Move(sourceFilePath, descDirectoryPath + "\\" + sourceFileName);
-            }
-        }
-        #endregion
-
-        #region 从文件的绝对路径中获取文件名( 不包含扩展名 )
-        /// <summary>
-        /// 从文件的绝对路径中获取文件名( 不包含扩展名 )
+        /// 从文件的绝对路径中获取文件名(包含扩展名)
         /// </summary>
         /// <param name="filePath">文件的绝对路径</param>        
-        public static string GetFileNameNoExtension(string filePath)
+        public static string GetFileName(string filePath)
         {
             //获取文件的名称
             FileInfo fi = new FileInfo(filePath);
-            return fi.Name.Split('.')[0];
+            return fi.Name;
         }
-        #endregion
 
-        #region 从文件的绝对路径中获取扩展名
         /// <summary>
         /// 从文件的绝对路径中获取扩展名
         /// </summary>
@@ -760,60 +683,16 @@ namespace Jnw.Common
             FileInfo fi = new FileInfo(filePath);
             return fi.Extension;
         }
-        #endregion
 
-        #region 清空指定目录
         /// <summary>
-        /// 清空指定目录下所有文件及子目录,但该目录依然保存.
+        /// 从文件的绝对路径中获取文件名(不包含扩展名)
         /// </summary>
-        /// <param name="directoryPath">指定目录的绝对路径</param>
-        public static void ClearDirectory(string directoryPath)
+        /// <param name="filePath">文件的绝对路径</param>        
+        public static string GetFileNameNoExtension(string filePath)
         {
-            if (IsExistDirectory(directoryPath))
-            {
-                //删除目录中所有的文件
-                string[] fileNames = GetFileNames(directoryPath);
-                for (int i = 0; i < fileNames.Length; i++)
-                {
-                    DeleteFile(fileNames[i]);
-                }
-
-                //删除目录中所有的子目录
-                string[] directoryNames = GetDirectories(directoryPath);
-                for (int i = 0; i < directoryNames.Length; i++)
-                {
-                    DeleteFolder(directoryNames[i]);
-                }
-            }
-        }
-        #endregion
-
-        #region 清空文件内容
-        /// <summary>
-        /// 清空文件内容
-        /// </summary>
-        /// <param name="filePath">文件的绝对路径</param>
-        public static void ClearFile(string filePath)
-        {
-            //删除文件
-            File.Delete(filePath);
-
-            //重新创建该文件
-            CreateFile(filePath);
-        }
-        #endregion
-
-        #region 删除指定目录
-        /// <summary>
-        /// 删除指定目录及其所有子目录
-        /// </summary>
-        /// <param name="directoryPath">指定目录的绝对路径</param>
-        public static void DeleteFolder(string directoryPath)
-        {
-            if (IsExistDirectory(directoryPath))
-            {
-                Directory.Delete(directoryPath, true);
-            }
+            //获取文件的名称
+            FileInfo fi = new FileInfo(filePath);
+            return fi.Name.Split('.')[0];
         }
         #endregion
 
