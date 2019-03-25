@@ -31,6 +31,7 @@ namespace Jnw.Common
         /// Author:Johnny Wong
         /// Time:2013-02-25
         /// EditTime:2013-07-12
+        /// LastUpdateTime: 2019.03.25
         /// </summary>
         /// <param name="fileName">文件路径</param>
         /// <returns></returns>
@@ -38,135 +39,21 @@ namespace Jnw.Common
         {
             //这是文件后缀名
             string extend = "jpg gif png bmp jpeg zip rar txt xls xlsx doc docx dps et ppt pptx wps xlsm 7z";
-            string str = GetFileExtendName(fileName);
+            string str = new FileInfo(fileName).Extension;
             return extend.Contains(str);
-        }
-
-        /// <summary>
-        /// 得到该文件的文件名(不含后缀)
-        /// 注意:文件路径前必须加   @
-        /// Author:Johnny Wong
-        /// Time:2014-07-10
-        /// </summary>
-        /// <param name="fileName">文件路径</param>
-        /// <returns></returns>
-        public static string GetFileName(string @fileName)
-        {
-            fileName = fileName.Replace("/", "\\");
-            int i = fileName.LastIndexOf("\\");
-            int j = fileName.LastIndexOf(".");
-            if (i == -1)
-            {
-                if (j == -1)
-                {
-                    return fileName;
-                }
-                else
-                {
-                    return fileName.Substring(0, j);
-                }
-            }
-            else
-            {
-                if (j == -1)
-                {
-                    return fileName.Substring(i + 1);
-                }
-                else
-                {
-                    return fileName.Substring(i + 1, j - i - 1);
-                }
-            }
-        }
-
-        /// <summary>
-        /// 得到该文件的后缀名
-        /// Author:Johnny Wong
-        /// Time:2013-02-25
-        /// EditTime:2013-07-12
-        /// </summary>
-        /// <param name="fileName">文件路径</param>
-        /// <returns></returns>
-        public static string GetFileExtendName(string fileName)
-        {
-            int i = fileName.LastIndexOf(".");
-            if (i == -1)
-            {
-                throw new Exception("该文件没有后缀名");
-            }
-            else
-            {
-                return fileName.Substring(i + 1).ToLower();
-            }
-        }
-
-        /// <summary>
-        /// 根据当前时间创建一个不重复的文件名
-        /// Author:Johnny Wong
-        /// Time:2013-07-12
-        /// </summary>
-        /// <returns></returns>
-        public static string CreateNewFileName()
-        {
-            DateTime dt = DateTime.Now;
-            StringBuilder sb = new StringBuilder();
-            sb.Append(dt.Year);
-            sb.Append(CreateNewFileName(dt.Month.ToString(), 2));
-            sb.Append(CreateNewFileName(dt.Day.ToString(), 2));
-            sb.Append(CreateNewFileName(dt.Hour.ToString(), 2));
-            sb.Append(CreateNewFileName(dt.Minute.ToString(), 2));
-            sb.Append(CreateNewFileName(dt.Second.ToString(), 2));
-            sb.Append(CreateNewFileName(dt.Millisecond.ToString(), 3));
-            return sb.ToString();
-        }
-
-        /// <summary>
-        /// 这个方法用来根据传入的时间创建一个不重复的文件名
-        /// Author:Johnny Wong
-        /// Time:2013-07-12
-        /// </summary>
-        /// <param name="dt">时间实体</param>
-        /// <returns></returns>
-        public static string CreateNewFileName(DateTime dt)
-        {
-            StringBuilder sb = new StringBuilder();
-            sb.Append(dt.Year);
-            sb.Append(CreateNewFileName(dt.Month.ToString(), 2));
-            sb.Append(CreateNewFileName(dt.Day.ToString(), 2));
-            sb.Append(CreateNewFileName(dt.Hour.ToString(), 2));
-            sb.Append(CreateNewFileName(dt.Minute.ToString(), 2));
-            sb.Append(CreateNewFileName(dt.Second.ToString(), 2));
-            sb.Append(CreateNewFileName(dt.Millisecond.ToString(), 3));
-            return sb.ToString();
         }
 
         /// <summary>
         /// 创建一个不重复的文件名
         /// Author:Johnny Wong
         /// Time:2017-10-19
+        /// UpdateTime: 2019.03.25
         /// <param name="needGuid">是否需要Guid格式</param>
         /// </summary>
         /// <returns></returns>
         public static string CreateNewFileName(bool needGuid)
         {
-            return needGuid ? Guid.NewGuid().ToString() : CreateNewFileName();
-        }
-
-        /// <summary>
-        /// 这个方法是属于CreateNewFileName()方法的一部分,用来拼接字符串,外部无需调用
-        /// Author:Johnny Wong
-        /// Time:2013-07-12
-        /// </summary>
-        /// <param name="time">传入参数</param>
-        /// <param name="length">字符串长度</param>
-        /// <returns></returns>
-        private static string CreateNewFileName(string time, int length)
-        {
-            while (time.Length < length)
-            {
-                time = "0" + time;
-            }
-            return time;
+            return needGuid ? Guid.NewGuid().ToString() : DateTime.Now.ToString("yyyyMMddhhmmss");
         }
 
         /// <summary>

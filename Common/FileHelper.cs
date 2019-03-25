@@ -663,7 +663,7 @@ namespace Jnw.Common
         }
 
         /// <summary>
-        /// 从文件的绝对路径中获取文件名(包含扩展名)
+        /// 从文件的绝对路径中获取文件名(包含后缀名)
         /// </summary>
         /// <param name="filePath">文件的绝对路径</param>        
         public static string GetFileName(string filePath)
@@ -674,7 +674,7 @@ namespace Jnw.Common
         }
 
         /// <summary>
-        /// 从文件的绝对路径中获取扩展名
+        /// 从文件的绝对路径中获取后缀名
         /// </summary>
         /// <param name="filePath">文件的绝对路径</param>        
         public static string GetExtension(string filePath)
@@ -685,7 +685,7 @@ namespace Jnw.Common
         }
 
         /// <summary>
-        /// 从文件的绝对路径中获取文件名(不包含扩展名)
+        /// 从文件的绝对路径中获取文件名(不包含后缀名)
         /// </summary>
         /// <param name="filePath">文件的绝对路径</param>        
         public static string GetFileNameNoExtension(string filePath)
