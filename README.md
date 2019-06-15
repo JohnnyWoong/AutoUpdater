@@ -62,6 +62,7 @@
     + rename: 重命名文件夹
   + value: 文件操作
     + @: 下载文件
+      + new: 更新更新器并启动
       + unzip: 下载并解压文件
     + remove: 移除文件
     + cut: 移动文件
@@ -176,6 +177,12 @@ private const string TipString = "版本号:";
 <it key="一级文件夹@add" value=""></it>
 ```
 
+从 服务器更新文件存放目录\KentCraft启动器 v190615.exe 下载至 程序根目录 并启动最新更新器
+
+``` xml
+<it key="" value="KentCraft启动器 v190615.exe@new@KentCraft启动器 v190615.exe"></it>
+```
+
 从 服务器更新文件存放目录\更新压缩包.zip 下载并解压至 程序根目录 (不包含压缩文件名)
 
 ``` xml
@@ -266,11 +273,11 @@ private const string TipString = "版本号:";
 ## 修改部分代码
 
 ``` c#
-"KentCraft智能启动器 v*.exe" => "所需更新器名 v*.exe"
+"KentCraft启动器 v*.exe" => "所需更新器名 v*.exe"
 ```
 
 ``` c#
-"KentCraft智能启动器 v" => "所需更新器名 v"
+"KentCraft启动器 v" => "所需更新器名 v"
 ```
 
 ``` c#

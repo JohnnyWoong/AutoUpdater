@@ -416,7 +416,7 @@ namespace Jnw.Common
                             if (operateFile.IndexOf("new") == 0)
                             {
                                 //更新启动器--调试时需注释
-                                if (operateFile.IndexOf("new") == 0 && Convert.ToInt32(ss.Substring("KentCraft智能启动器 v".Length, 6)) > Convert.ToInt32(Application.ExecutablePath.Substring(Application.ExecutablePath.IndexOf("KentCraft智能启动器 v") + "KentCraft智能启动器 v".Length, 6)))
+                                if (operateFile.IndexOf("new") == 0 && Convert.ToInt32(ss.Substring("KentCraft启动器 v".Length, 6)) > Convert.ToInt32(Application.ExecutablePath.Substring(Application.ExecutablePath.IndexOf("KentCraft启动器 v") + "KentCraft启动器 v".Length, 6)))
                                 {
                                     wc = new WebClient();
                                     wc.DownloadProgressChanged += WcDownloadProgressChanged;
@@ -425,9 +425,9 @@ namespace Jnw.Common
                                     _mre = new ManualResetEvent(false);
                                     _mre.WaitOne();
                                     //如果Temp下已有更新器,则删除该更新器
-                                    if (localPath.Contains("KentCraft智能启动器 v"))
+                                    if (localPath.Contains("KentCraft启动器 v"))
                                     {
-                                        var tempFile = FileHelper.GetFileNames(_winformPath + "Temp\\", "KentCraft智能启动器 v*.exe", false);
+                                        var tempFile = FileHelper.GetFileNames(_winformPath + "Temp\\", "KentCraft启动器 v*.exe", false);
                                         if (tempFile.Length > 1)
                                             FileHelper.DeleteFile(tempFile.First());
                                         throw new Exception();
@@ -668,9 +668,9 @@ namespace Jnw.Common
                                 }
 
                                 //如果Temp下已有更新器,则删除该更新器
-                                if (localPath.Contains("KentCraft智能启动器 v"))
+                                if (localPath.Contains("KentCraft启动器 v"))
                                 {
-                                    var tempFile = FileHelper.GetFileNames(_winformPath + "Temp\\", "KentCraft智能启动器 v*.exe", false);
+                                    var tempFile = FileHelper.GetFileNames(_winformPath + "Temp\\", "KentCraft启动器 v*.exe", false);
                                     if (tempFile.Length > 1)
                                         FileHelper.DeleteFile(tempFile.First());
                                 }
@@ -683,7 +683,7 @@ namespace Jnw.Common
                 }
                 pb.Invoke(pbNow, 0);
                 pb.Invoke(pbMax, 4);
-                FileHelper.CopyFolder(_winformPath + "Temp\\", _winformPath, "KentCraft智能启动器 v");
+                FileHelper.CopyFolder(_winformPath + "Temp\\", _winformPath, "KentCraft启动器 v");
                 pb.Invoke(pbNow, 1);
                 //删除目录失败不影响整体更新
                 try
@@ -702,7 +702,7 @@ namespace Jnw.Common
             catch (Exception e)
             {
                 //如果更新出错,则有可能是更新器不是最新版本
-                var tempFile = FileHelper.GetFileNames(_winformPath + "Temp\\", "KentCraft智能启动器 v*.exe", false);
+                var tempFile = FileHelper.GetFileNames(_winformPath + "Temp\\", "KentCraft启动器 v*.exe", false);
                 if (tempFile.Length == 1)
                 {
                     //移动更新器失败是因为目录下已有更新器文件,并不影响更新器更新
@@ -715,7 +715,7 @@ namespace Jnw.Common
 
                     }
                     //打开更新的更新器
-                    Process.Start(FileHelper.GetFileNames(_winformPath, "KentCraft智能启动器 v*.exe", false).First());
+                    Process.Start(FileHelper.GetFileNames(_winformPath, "KentCraft启动器 v*.exe", false).First());
                     Application.Exit();
                 }
                 else
