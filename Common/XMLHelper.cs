@@ -63,7 +63,7 @@ namespace Jnw.Common
         /// <summary>
         /// Author:Johnny Wong
         /// Time:2018-01-06
-        /// EditTime:2018-02-04
+        /// EditTime:2019-06-15
         /// 获取指定数量的指定节点下的item值并进行拼接
         /// </summary>
         /// <param name="path">xml路径</param>
@@ -78,7 +78,7 @@ namespace Jnw.Common
             {
                 r += xd.DocumentElement.SelectNodes(name)[i].SelectSingleNode("item").Attributes["value"].Value + "\r\n\r\n\r\n";
             }
-            return r.Substring(0, r.LastIndexOf("\r\n\r\n\r\n"));
+            return r.Substring(0, r.LastIndexOf("\r\n\r\n\r\n")).Replace("\r", "").Replace("\n", "\r\n"); //replace解决极少时候xml文件读取不到换行符的问题 (比如github?)
         }
 
         /// <summary>
