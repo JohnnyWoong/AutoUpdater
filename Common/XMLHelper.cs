@@ -78,7 +78,7 @@ namespace Jnw.Common
             {
                 r += xd.DocumentElement.SelectNodes(name)[i].SelectSingleNode("item").Attributes["value"].Value + "\r\n\r\n\r\n";
             }
-            return r.Substring(0, r.LastIndexOf("\r\n\r\n\r\n")).Replace("\r", "").Replace("\n", "\r\n"); //replace解决极少时候xml文件读取不到换行符的问题 (比如github?)
+            return r.Substring(0, r.LastIndexOf("\r\n\r\n\r\n")).Replace("\r", "").Replace("\n", "\r\n"); //replace解决极少机器极少时候xml文件读取不到换行符的问题
         }
 
         /// <summary>
