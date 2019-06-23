@@ -670,6 +670,8 @@ namespace Jnw.Common
                                     throw new Exception("文件未成功下载,请重启更新器");
                                 }
 
+                                response.Close();
+
                                 //有需要解压的文件则进行解压
                                 //if (localPath.Contains("需解压"))
 
