@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Threading;
@@ -399,6 +400,9 @@ namespace Jnw.Common
                 int time = 0;
                 int all = fl.Length + 1;
                 WebClient wc = null;
+                HttpWebRequest request = null;
+                WebResponse response = null;
+
                 //查看是否需要更新启动器
                 foreach (string ss in fl)
                 {
@@ -647,6 +651,11 @@ namespace Jnw.Common
                                     operateNewFile = "";
                                 }
 
+                                //验证下载文件大小
+                                request = (HttpWebRequest)System.Net.WebRequest.Create(newFile);
+                                response = (HttpWebResponse)request.GetResponse();
+
+                                //下载文件
                                 wc = new WebClient();
                                 wc.DownloadProgressChanged += WcDownloadProgressChanged;
                                 wc.DownloadFileCompleted += WcDownloadFileCompleted;
@@ -655,6 +664,11 @@ namespace Jnw.Common
                                 _mre.WaitOne();
 
                                 Thread.Sleep(777); //不短暂暂停会导致提前解压
+
+                                if (FileHelper.GetFileSize(localPath) != response.ContentLength)
+                                {
+                                    throw new Exception("文件未成功下载,请重启更新器");
+                                }
 
                                 //有需要解压的文件则进行解压
                                 //if (localPath.Contains("需解压"))

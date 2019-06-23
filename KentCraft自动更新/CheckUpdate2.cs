@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Linq;
-using System.Net;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows.Forms;
@@ -90,7 +89,6 @@ namespace winform自动更新
             base.CheckUpdate_Load(sender, e, 1);
             try
             {
-                //ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12; //解决极少部分机器显示Could not create SSL/TLS secure channel 待验证
                 //获取更新内容
                 int updateVersion = 0;
                 string newVersion = XMLHelper.GetItemValue(ConfigPath, "version", updateVersion).Trim();

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Net;
 using System.Windows.Forms;
 
 namespace winform自动更新
@@ -209,6 +210,7 @@ namespace winform自动更新
         /// <param name="e"></param>
         protected virtual void CheckUpdate_Load(object sender, EventArgs e, int type)
         {
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12; //解决极少部分系统(window server 2008R2 和极少部分win7)显示Could not create SSL/TLS secure channel
             Jnw.Common.AutoUpdate au = GetJnWCommonAutoUpdateInstance();
             au.KillProcess("KentCraft", true, false);
             //au.KillProcess("java", true);
