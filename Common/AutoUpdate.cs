@@ -631,11 +631,17 @@ namespace Jnw.Common
                                 }
                                 else
                                 {
-                                    FileHelper.MoveFile(_winformPath + ss.Substring(0, ss.IndexOf("@")), _winformPath + ss.Substring(ss.LastIndexOf("@") + 1));
-                                    FileHelper.MoveFile(_winformPath + "Temp\\" + ss.Substring(0, ss.IndexOf("@")), _winformPath + "Temp\\" + ss.Substring(ss.LastIndexOf("@") + 1));
+                                    FileHelper.MoveFile(_winformPath + ss.Substring(0, ss.IndexOf("@")), FileHelper.GetDirectoryName(_winformPath + ss.Substring(0, ss.IndexOf("@"))) + "\\" + ss.Substring(ss.LastIndexOf("@") + 1));
+                                    FileHelper.MoveFile(_winformPath + "Temp\\" + ss.Substring(0, ss.IndexOf("@")), FileHelper.GetDirectoryName(_winformPath + "Temp\\" + ss.Substring(0, ss.IndexOf("@"))) + "\\" + ss.Substring(ss.LastIndexOf("@") + 1));
                                 }
                                 pb.Invoke(pbMax, 1);
                                 pb.Invoke(pbNow, 1);
+                            }
+                            //是否为强制更新
+                            else if (operateFile.IndexOf("new@") == 0)
+                            {
+                                isS = true;
+                                continue;
                             }
                             //下载文件
                             else
@@ -671,6 +677,8 @@ namespace Jnw.Common
                                 }
 
                                 response.Close();
+
+                                Thread.Sleep(777); //不短暂暂停会导致无法连续下载小文件
 
                                 //有需要解压的文件则进行解压
                                 //if (localPath.Contains("需解压"))
