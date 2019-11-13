@@ -40,7 +40,7 @@ namespace KentCraft自动更新生成器
                 }
                 result.Append(tempStr);
 
-                ////新增文件
+                //x 新增文件
                 //tempStr = "";
                 //var addFile = FileHelper.GetFileNames(Environment.CurrentDirectory + "\\新增", "*", true);
                 //foreach (var temp in addFile)
@@ -175,6 +175,26 @@ namespace KentCraft自动更新生成器
                               "@restore\" value=\"\"></it>" + tempStr;
                     else
                         tempStr = "\n<it key=\"" + temp.Substring(Environment.CurrentDirectory.Length + 11) + "@add\" value=\"\"></it>" + tempStr;
+                }
+                result.Append(tempStr);
+
+                //重命名
+                tempStr = "";
+                var renameFile =
+                    FileHelper.GetFileNames(Environment.CurrentDirectory + "\\" + textBox2.Text + "\\重名",
+                        "*", true);
+                string tr;
+                foreach (var temp in renameFile)
+                {
+                    if (FileHelper.GetDirectoryName(temp).Length < Environment.CurrentDirectory.Length + 11)
+                    {
+                        tr = FileHelper.GetDirectoryName(temp).Substring(Environment.CurrentDirectory.Length + 10);
+                    }
+                    else
+                    {
+                        tr = FileHelper.GetDirectoryName(temp).Substring(Environment.CurrentDirectory.Length + 11);
+                    }
+                    tempStr = string.Format("\n<it key=\"\" value=\"{0}{1}@rename@{2}\"></it>{3}", tr, tr != "" ? "\\" + FileHelper.GetMd5(temp) : FileHelper.GetMd5(temp), FileHelper.GetFileName(temp),tempStr);
                 }
                 result.Append(tempStr);
 
