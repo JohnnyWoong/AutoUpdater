@@ -6,7 +6,7 @@ using System.Threading;
 using System.Windows.Forms;
 using Jnw.Common;
 
-namespace winform自动更新
+namespace KentCraftAutoUpdater
 {
     public partial class CheckUpdate2 : GenericUpdate
     {

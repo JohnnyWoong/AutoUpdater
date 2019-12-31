@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace winform自动更新
+namespace KentCraftAutoUpdater
 {
     public partial class CheckUpdate : GenericUpdate
     {

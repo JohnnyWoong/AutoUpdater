@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.Net;
 using System.Windows.Forms;
 
-namespace winform自动更新
+namespace KentCraftAutoUpdater
 {
     public class GenericUpdate : Form
     {

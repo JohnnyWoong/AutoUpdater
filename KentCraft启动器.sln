@@ -1,15 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27130.2026
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29613.14
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{BB8A8AED-4FE2-4D7F-8E6F-115102F172C1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KentCraft自动更新生成器", "KentCraft自动更新生成器\KentCraft自动更新生成器.csproj", "{38E3ECCA-F9B1-4147-978A-00E723C49EF1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KentCraft自动更新", "KentCraft自动更新\KentCraft自动更新.csproj", "{3C165647-EA53-46FE-AC97-9A816F8C6F6E}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KentCraft启动器", "KentCraft启动器\KentCraft启动器.csproj", "{2261B787-671C-4B49-B2DD-F129F43FC7E9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -53,18 +51,6 @@ Global
 		{3C165647-EA53-46FE-AC97-9A816F8C6F6E}.Release|Mixed Platforms.Build.0 = Release|x86
 		{3C165647-EA53-46FE-AC97-9A816F8C6F6E}.Release|x86.ActiveCfg = Release|x86
 		{3C165647-EA53-46FE-AC97-9A816F8C6F6E}.Release|x86.Build.0 = Release|x86
-		{2261B787-671C-4B49-B2DD-F129F43FC7E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2261B787-671C-4B49-B2DD-F129F43FC7E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2261B787-671C-4B49-B2DD-F129F43FC7E9}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{2261B787-671C-4B49-B2DD-F129F43FC7E9}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{2261B787-671C-4B49-B2DD-F129F43FC7E9}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{2261B787-671C-4B49-B2DD-F129F43FC7E9}.Debug|x86.Build.0 = Debug|Any CPU
-		{2261B787-671C-4B49-B2DD-F129F43FC7E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2261B787-671C-4B49-B2DD-F129F43FC7E9}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2261B787-671C-4B49-B2DD-F129F43FC7E9}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{2261B787-671C-4B49-B2DD-F129F43FC7E9}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{2261B787-671C-4B49-B2DD-F129F43FC7E9}.Release|x86.ActiveCfg = Release|Any CPU
-		{2261B787-671C-4B49-B2DD-F129F43FC7E9}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

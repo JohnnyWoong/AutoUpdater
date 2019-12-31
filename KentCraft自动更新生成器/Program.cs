@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace KentCraft自动更新生成器
+namespace KentCraftAutoUpdaterGenerator
 {
     static class Program
     {
@@ -13,7 +13,7 @@ namespace KentCraft自动更新生成器
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new KentCraft自动更新生成器());
+            Application.Run(new KentCraftAutoUpdaterGenerator());
         }
     }
 }

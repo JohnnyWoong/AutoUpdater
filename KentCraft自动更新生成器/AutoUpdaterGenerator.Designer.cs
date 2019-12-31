@@ -1,6 +1,6 @@
-﻿namespace KentCraft自动更新生成器
+﻿namespace KentCraftAutoUpdaterGenerator
 {
-    partial class KentCraft自动更新生成器
+    partial class KentCraftAutoUpdaterGenerator
     {
         /// <summary>
         /// 必需的设计器变量。
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(KentCraft自动更新生成器));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(KentCraftAutoUpdaterGenerator));
             this.button1 = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -131,7 +131,7 @@
             this.cbkMd5.Text = "md5";
             this.cbkMd5.UseVisualStyleBackColor = true;
             // 
-            // KentCraft自动更新生成器
+            // KentCraftAutoUpdaterGenerator
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -149,7 +149,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
-            this.Name = "KentCraft自动更新生成器";
+            this.Name = "AutoUpdaterGenerator";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "KentCraft自动更新生成器";
             this.ResumeLayout(false);

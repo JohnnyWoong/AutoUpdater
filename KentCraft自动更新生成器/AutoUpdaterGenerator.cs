@@ -4,11 +4,11 @@ using System.Collections.Generic;
 using System.Text;
 using System.Windows.Forms;
 
-namespace KentCraft自动更新生成器
+namespace KentCraftAutoUpdaterGenerator
 {
-    public partial class KentCraft自动更新生成器 : Form
+    public partial class KentCraftAutoUpdaterGenerator : Form
     {
-        public KentCraft自动更新生成器()
+        public KentCraftAutoUpdaterGenerator()
         {
             InitializeComponent();
             textBox2.Text = DateTime.Now.ToString("yyMMdd");

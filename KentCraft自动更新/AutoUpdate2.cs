@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 
-namespace winform自动更新
+namespace KentCraftAutoUpdater
 {
     public partial class AutoUpdate2 : GenericUpdate
     {

@@ -1,4 +1,4 @@
-﻿namespace winform自动更新
+﻿namespace KentCraftAutoUpdater
 {
     partial class AutoUpdate2
     {
