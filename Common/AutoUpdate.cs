@@ -687,7 +687,7 @@ namespace Jnw.Common
                                 if (operateNewFile == "unzip")
                                 {
                                     pb.Invoke(pbNow, 0);
-                                    CompressHelper.Uncompress(localPath, _winformPath + "Temp\\", pb);
+                                    CompressHelper.Uncompress(localPath, FileHelper.GetDirectoryName(localPath) + "\\", pb);
                                     FileHelper.DeleteFile(localPath);
                                 }
 
