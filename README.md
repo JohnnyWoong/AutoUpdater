@@ -188,7 +188,7 @@ private const string TipString = "版本号:";
 从 服务器更新文件存放目录\更新压缩包.zip 下载并解压至 程序根目录 (不包含压缩文件名)
 
 ``` xml
-<it key="" value="说明.txt@更新压缩包.zip@unzip"></it>
+<it key="" value="更新压缩包.zip@更新压缩包.zip@unzip"></it>
 ```
 
 ##### 移除文件
@@ -320,7 +320,3 @@ au.OpenUpdate("KentCraft.exe"); //所需程序文件名
 ## 说明
 
 如要根据文件名删除文件请取消勾选 md5
-
-## 已知bug
-
-1. 解压压缩文件内如有中文文件名可能会出现乱码
