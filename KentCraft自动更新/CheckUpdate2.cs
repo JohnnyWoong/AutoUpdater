@@ -116,7 +116,7 @@ namespace KentCraftAutoUpdater
                 }
                 //var tip = XMLHelper.GetItemsValue(ConfigPath, "version", updateVersion);
                 //label2.Text = tip.Substring(0, tip.Length - 6);
-                var tip = XMLHelper.GetItemsValue(ConfigPath, "version", updateVersion).Replace("\r\n\r\n", "\r\n").Replace("\r\n"," \r\n");
+                var tip = XMLHelper.GetItemsValue(ConfigPath, "version", updateVersion).Replace("\r\n\r\n", "\r\n").Replace("\r\n", " \r\n");
                 label2.Text = tip.IndexOf("更新时间") != tip.LastIndexOf("更新时间") ? tip : tip.Replace("更新时间", "\r\n更新时间");
                 //使整个窗体根据屏幕居中
                 SetBounds((Screen.GetBounds(this).Width / 2) - Width / 2, (Screen.GetBounds(this).Height / 2) - (Height / 2), Width, Height, BoundsSpecified.Location);
@@ -139,7 +139,7 @@ namespace KentCraftAutoUpdater
         public static extern int ShowScrollBar(IntPtr hWnd, int bar, int show);
 
         #endregion
-        
+
         /// <summary>
         /// 下次再说
         /// </summary>
