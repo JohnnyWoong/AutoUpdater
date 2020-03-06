@@ -174,15 +174,15 @@ namespace KentCraftAutoUpdater
                 au.OpenUpdateLog();
             }
             //如果有多个启动器,则打开最新的启动器
-            var exe = Jnw.Common.FileHelper.GetFileNames(_winformPath, "KentCraft启动器 v*.exe", false);
+            var exe = Jnw.Common.FileHelper.GetFileNames(_winformPath, "KentCraft智能更新器 v*.exe", false);
             if (exe.Length > 1)
             {
                 string newExe = "";
                 foreach (var temp in exe)
                 {
                     if (newExe == "" ||
-                        Convert.ToInt32(temp.Substring((_winformPath + "KentCraft启动器 v").Length, 6)) >
-                        Convert.ToInt32(newExe.Substring((_winformPath + "KentCraft启动器 v").Length, 6)))
+                        Convert.ToInt32(temp.Substring((_winformPath + "KentCraft智能更新器 v").Length, 6)) >
+                        Convert.ToInt32(newExe.Substring((_winformPath + "KentCraft智能更新器 v").Length, 6)))
                         newExe = temp;
                 }
                 au.OpenUpdate(newExe);
