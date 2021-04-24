@@ -40,6 +40,7 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.linkLabel2 = new System.Windows.Forms.LinkLabel();
+            this.linkLabel3 = new System.Windows.Forms.LinkLabel();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -147,7 +148,7 @@
             // 
             this.linkLabel1.AutoSize = true;
             this.linkLabel1.LinkColor = System.Drawing.Color.MediumSlateBlue;
-            this.linkLabel1.Location = new System.Drawing.Point(223, 29);
+            this.linkLabel1.Location = new System.Drawing.Point(155, 9);
             this.linkLabel1.Name = "linkLabel1";
             this.linkLabel1.Size = new System.Drawing.Size(95, 12);
             this.linkLabel1.TabIndex = 10;
@@ -159,13 +160,25 @@
             // 
             this.linkLabel2.AutoSize = true;
             this.linkLabel2.LinkColor = System.Drawing.Color.MediumSlateBlue;
-            this.linkLabel2.Location = new System.Drawing.Point(223, 9);
+            this.linkLabel2.Location = new System.Drawing.Point(155, 28);
             this.linkLabel2.Name = "linkLabel2";
-            this.linkLabel2.Size = new System.Drawing.Size(95, 12);
+            this.linkLabel2.Size = new System.Drawing.Size(83, 12);
             this.linkLabel2.TabIndex = 11;
             this.linkLabel2.TabStop = true;
-            this.linkLabel2.Text = "KentCraft大百科";
+            this.linkLabel2.Text = "KentCraft百科";
             this.linkLabel2.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel2_LinkClicked);
+            // 
+            // linkLabel3
+            // 
+            this.linkLabel3.AutoSize = true;
+            this.linkLabel3.LinkColor = System.Drawing.Color.MediumSlateBlue;
+            this.linkLabel3.Location = new System.Drawing.Point(244, 28);
+            this.linkLabel3.Name = "linkLabel3";
+            this.linkLabel3.Size = new System.Drawing.Size(83, 12);
+            this.linkLabel3.TabIndex = 12;
+            this.linkLabel3.TabStop = true;
+            this.linkLabel3.Text = "KentCraft网盘";
+            this.linkLabel3.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel3_LinkClicked);
             // 
             // CheckUpdate2
             // 
@@ -174,6 +187,7 @@
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientSize = new System.Drawing.Size(425, 168);
+            this.Controls.Add(this.linkLabel3);
             this.Controls.Add(this.linkLabel2);
             this.Controls.Add(this.linkLabel1);
             this.Controls.Add(this.btnConfirm);
@@ -213,5 +227,6 @@
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.LinkLabel linkLabel1;
         private System.Windows.Forms.LinkLabel linkLabel2;
+        private System.Windows.Forms.LinkLabel linkLabel3;
     }
 }

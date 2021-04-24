@@ -169,7 +169,12 @@ namespace KentCraftAutoUpdater
 
         private void linkLabel2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Process.Start("https://www.notion.so/johnnywoong/21-44c31c444f364dfeba39bb16c8f358cc");
+            Process.Start("https://www.notion.so/johnnywoong/KentCraft-5a5521655f844313a8e46e3283d495c5");
+        }
+
+        private void linkLabel3_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Process.Start("http://download.kentcraft.wiki/dir/1880801-39989630-4625c9");
         }
     }
 }
