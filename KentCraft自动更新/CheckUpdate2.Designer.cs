@@ -154,6 +154,7 @@
             this.linkLabel1.TabIndex = 10;
             this.linkLabel1.TabStop = true;
             this.linkLabel1.Text = "KentCraft大家庭";
+            this.linkLabel1.Visible = false;
             this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
             // 
             // linkLabel2
@@ -165,7 +166,7 @@
             this.linkLabel2.Size = new System.Drawing.Size(83, 12);
             this.linkLabel2.TabIndex = 11;
             this.linkLabel2.TabStop = true;
-            this.linkLabel2.Text = "KentCraft百科";
+            this.linkLabel2.Text = "KentCraft官网";
             this.linkLabel2.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel2_LinkClicked);
             // 
             // linkLabel3
@@ -178,6 +179,7 @@
             this.linkLabel3.TabIndex = 12;
             this.linkLabel3.TabStop = true;
             this.linkLabel3.Text = "KentCraft网盘";
+            this.linkLabel3.Visible = false;
             this.linkLabel3.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel3_LinkClicked);
             // 
             // CheckUpdate2
