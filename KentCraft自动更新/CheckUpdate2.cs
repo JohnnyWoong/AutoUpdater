@@ -45,11 +45,11 @@ namespace KentCraftAutoUpdater
                 //最新的更新器
                 string newest = "";
                 //获取所有更新器
-                var newExe = FileHelper.GetFileNames(WinformPath, "KentCraft启动器 v*.exe", false);
+                var newExe = FileHelper.GetFileNames(WinformPath, FileHelper.GetContent("KCLconfig.ini")[4] + "*.exe", false);
                 //获取最新更新器
                 foreach (var temp in newExe)
                 {
-                    if (newest == "" || Convert.ToInt32(temp.Substring((WinformPath + "KentCraft启动器 v").Length, 6)) > Convert.ToInt32(newest.Substring((WinformPath + "KentCraft启动器 v").Length, 6)))
+                    if (newest == "" || Convert.ToInt32(temp.Substring((WinformPath + FileHelper.GetContent("KCLconfig.ini")[4]).Length, 6)) > Convert.ToInt32(newest.Substring((WinformPath + FileHelper.GetContent("KCLconfig.ini")[4]).Length, 6)))
                     {
                         newest = temp;
                     }
@@ -72,15 +72,15 @@ namespace KentCraftAutoUpdater
                     //MessageBox.Show(newExe.Length.ToString());
                     //移除所有比该更新器版本低的更新器
                     MessageBox.Show("点确定移除过时启动器", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);//必须有这行代码否则无法删除
-                    var exe = FileHelper.GetFileNames(WinformPath, "KentCraft启动器 v*.exe", false).Where(i =>
-                    Convert.ToInt32(i.Substring((WinformPath + "KentCraft启动器 v").Length, 6)) <=
-                    Convert.ToInt32(Application.ExecutablePath.Substring((WinformPath + "KentCraft启动器 v").Length, 6)));
+                    var exe = FileHelper.GetFileNames(WinformPath, FileHelper.GetContent("KCLconfig.ini")[4] + "*.exe", false).Where(i =>
+                    Convert.ToInt32(i.Substring((WinformPath + FileHelper.GetContent("KCLconfig.ini")[4]).Length, 6)) <=
+                    Convert.ToInt32(Application.ExecutablePath.Substring((WinformPath + FileHelper.GetContent("KCLconfig.ini")[4]).Length, 6)));
                     foreach (var temp in exe)
                     {
                         if (!Application.ExecutablePath.Contains(FileHelper.GetFileName(temp)))
                             FileHelper.DeleteFile(temp);
                     }
-                    newExe = FileHelper.GetFileNames(WinformPath, "KentCraft启动器 v*.exe", false);
+                    newExe = FileHelper.GetFileNames(WinformPath, FileHelper.GetContent("KCLconfig.ini")[4] + "*.exe", false);
                 }
                 //删除冗余文件
                 FileHelper.DeleteFolder(WinformPath + "Temp\\");
