@@ -174,7 +174,7 @@ namespace KentCraftAutoUpdater
 
         private void linkLabel3_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Process.Start("http://download.kentcraft.wiki/dir/1880801-39989630-4625c9");
+            Process.Start("https://johnnywoong.notion.site/KentCraft-5a5521655f844313a8e46e3283d495c5");
         }
     }
 }

@@ -369,7 +369,7 @@ namespace Jnw.Common
         /// 更新文件
         /// Author:Johnny Wong
         /// Time:2015-03-06
-        /// LastEditTime:2019-03-22
+        /// EditTime:2021-12-21
         /// <param name="bgw">BackgroundWorker实体</param>
         /// <param name="pb">进度条实体</param>
         /// </summary>
@@ -549,6 +549,8 @@ namespace Jnw.Common
                                         }
                                     }
                                 }
+                                pb.Invoke(pbMax, 1);
+                                pb.Invoke(pbNow, 1);
                             }
                             //移除文件
                             else if (operateFile == "remove")
@@ -641,6 +643,10 @@ namespace Jnw.Common
                             else if (operateFile.IndexOf("new@") == 0)
                             {
                                 isS = true;
+                                pb.Invoke(pbMax, 1);
+                                pb.Invoke(pbNow, 1);
+                                time++;
+                                bgw.ReportProgress(Convert.ToInt32(Convert.ToDouble(time) / Convert.ToDouble(all) * 100));
                                 continue;
                             }
                             //下载文件
@@ -671,7 +677,7 @@ namespace Jnw.Common
 
                                 Thread.Sleep(777); //不短暂暂停会导致提前解压
 
-                                if (FileHelper.GetFileSize(localPath) != response.ContentLength)
+                                if (FileHelper.GetFileSize(localPath) != response.ContentLength && response.ContentLength > 0)
                                 {
                                     throw new Exception("文件未成功下载,请重启更新器");
                                 }
