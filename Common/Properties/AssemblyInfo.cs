@@ -9,7 +9,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Johnny Wong")]
-[assembly: AssemblyProduct("KentCraft智能更新器")]
+[assembly: AssemblyProduct("KentCraft_LCW更新器")]
 [assembly: AssemblyCopyright("Copyright © Johnny Wong 2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

@@ -5,10 +5,10 @@ namespace KentCraftAutoUpdater
 {
     public partial class AutoUpdate2 : GenericUpdate
     {
-        private const string ServerAddress = "";
-        private const string ConfigPath = "";
+        private readonly static string ServerAddress = Jnw.Common.FileHelper.GetContent("KCLconfig.ini")[2];
+        private readonly static string ConfigPath = Jnw.Common.FileHelper.GetContent("KCLconfig.ini")[2] + "updateconfig.xml";
         //private const string ConfigPath = @"E:\编程\C#\制作\我的世界\updateconfig.xml";
-        private const string UpdateLogPath = "更新日志.txt";
+        private readonly static string UpdateLogPath = Jnw.Common.FileHelper.GetContent("KCLconfig.ini")[3];
         private readonly static string WinformPath = Environment.CurrentDirectory + "\\";
 
         public AutoUpdate2()

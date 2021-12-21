@@ -10,10 +10,10 @@ namespace KentCraftAutoUpdater
 {
     public partial class CheckUpdate2 : GenericUpdate
     {
-        private const string ServerAddress = "";
-        private const string ConfigPath = "";
+        private readonly static string ServerAddress = FileHelper.GetContent("KCLconfig.ini")[2];
+        private readonly static string ConfigPath = FileHelper.GetContent("KCLconfig.ini")[2] + "updateconfig.xml";
         //private const string ConfigPath = @"E:\编程\C#\制作\我的世界\updateconfig.xml";
-        private const string UpdateLogPath = "更新日志.txt";
+        private readonly static string UpdateLogPath = FileHelper.GetContent("KCLconfig.ini")[3];
         private const string TipString = "版本号:";
         private readonly static string WinformPath = Environment.CurrentDirectory + "\\";
 
@@ -36,7 +36,7 @@ namespace KentCraftAutoUpdater
                 Process[] pcs = Process.GetProcesses();
                 foreach (Process item in pcs)
                 {
-                    if (item.ProcessName.Contains("KentCraft"))
+                    if (item.ProcessName.Contains(FileHelper.GetContent("KCLconfig.ini")[0]))
                     {
                         if (item.Id != Process.GetCurrentProcess().Id)
                             item.Kill();
@@ -45,11 +45,11 @@ namespace KentCraftAutoUpdater
                 //最新的更新器
                 string newest = "";
                 //获取所有更新器
-                var newExe = FileHelper.GetFileNames(WinformPath, "KentCraft智能更新器 v*.exe", false);
+                var newExe = FileHelper.GetFileNames(WinformPath, "KentCraft启动器 v*.exe", false);
                 //获取最新更新器
                 foreach (var temp in newExe)
                 {
-                    if (newest == "" || Convert.ToInt32(temp.Substring((WinformPath + "KentCraft智能更新器 v").Length, 6)) > Convert.ToInt32(newest.Substring((WinformPath + "KentCraft智能更新器 v").Length, 6)))
+                    if (newest == "" || Convert.ToInt32(temp.Substring((WinformPath + "KentCraft启动器 v").Length, 6)) > Convert.ToInt32(newest.Substring((WinformPath + "KentCraft启动器 v").Length, 6)))
                     {
                         newest = temp;
                     }
@@ -72,15 +72,15 @@ namespace KentCraftAutoUpdater
                     //MessageBox.Show(newExe.Length.ToString());
                     //移除所有比该更新器版本低的更新器
                     MessageBox.Show("点确定移除过时启动器", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);//必须有这行代码否则无法删除
-                    var exe = FileHelper.GetFileNames(WinformPath, "KentCraft智能更新器 v*.exe", false).Where(i =>
-                    Convert.ToInt32(i.Substring((WinformPath + "KentCraft智能更新器 v").Length, 6)) <=
-                    Convert.ToInt32(Application.ExecutablePath.Substring((WinformPath + "KentCraft智能更新器 v").Length, 6)));
+                    var exe = FileHelper.GetFileNames(WinformPath, "KentCraft启动器 v*.exe", false).Where(i =>
+                    Convert.ToInt32(i.Substring((WinformPath + "KentCraft启动器 v").Length, 6)) <=
+                    Convert.ToInt32(Application.ExecutablePath.Substring((WinformPath + "KentCraft启动器 v").Length, 6)));
                     foreach (var temp in exe)
                     {
                         if (!Application.ExecutablePath.Contains(FileHelper.GetFileName(temp)))
                             FileHelper.DeleteFile(temp);
                     }
-                    newExe = FileHelper.GetFileNames(WinformPath, "KentCraft智能更新器 v*.exe", false);
+                    newExe = FileHelper.GetFileNames(WinformPath, "KentCraft启动器 v*.exe", false);
                 }
                 //删除冗余文件
                 FileHelper.DeleteFolder(WinformPath + "Temp\\");
@@ -169,7 +169,7 @@ namespace KentCraftAutoUpdater
 
         private void linkLabel2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Process.Start("https://www.notion.so/johnnywoong/KentCraft-5a5521655f844313a8e46e3283d495c5");
+            Process.Start("https://www.kentcraft.cn/");
         }
 
         private void linkLabel3_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
