@@ -272,7 +272,7 @@ private const string TipString = "版本号:";
 <it key="" value="一级文件夹\A301B39E88A2347EABE07B3D931581A8@rename@说明文件.txt"></it>
 ```
 
-## 修改部分代码
+## 修改部分代码(或直接修改配置文件)
 
 ```c#
 "KentCraft启动器 v*.exe" => "所需更新器名 v*.exe"
