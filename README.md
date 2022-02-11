@@ -216,7 +216,7 @@ private const string TipString = "版本号:";
 移动 说明.txt 至 一级文件夹
 
 ```xml
-<it key="" value=""></it>
+<it key="" value="说明.txt@cut@一级文件夹\说明.txt"></it>
 ```
 
 ##### 复制文件
