@@ -74,7 +74,7 @@
             this.richTextBox1.Name = "richTextBox1";
             this.richTextBox1.Size = new System.Drawing.Size(458, 175);
             this.richTextBox1.TabIndex = 3;
-            this.richTextBox1.Text = "1.更新内容\n2.更新内容\n3.更新内容\n\n更新时间: yyyy-MM-dd";
+            this.richTextBox1.Text = "﹢ 新增\n↑ 更新\n▪  修复\n↓ 降级\n﹣ 移除\n\n更新时间: yyyy-MM-dd";
             // 
             // label2
             // 
@@ -149,7 +149,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
-            this.Name = "AutoUpdaterGenerator";
+            this.Name = "KentCraftAutoUpdaterGenerator";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "KentCraft自动更新生成器";
             this.ResumeLayout(false);
